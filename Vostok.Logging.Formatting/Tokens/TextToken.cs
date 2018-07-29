@@ -35,5 +35,7 @@ namespace Vostok.Logging.Formatting.Tokens
                 }
             }
         }
+
+        public override string ToString() => length == text.Length ? text : text.Substring(offset, length);
     }
 }

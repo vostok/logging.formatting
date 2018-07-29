@@ -20,6 +20,8 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             token.Render(null, writer, null);
 
+            token.ToString().Should().Be(expected);
+
             writer.ToString().Should().Be(expected);
         }
     }
