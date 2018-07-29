@@ -7,6 +7,6 @@ namespace Vostok.Logging.Formatting.Tokens
 {
     internal interface ITemplateToken
     {
-        void Render([CanBeNull] LogEvent @event, [NotNull] TextWriter writer, [CanBeNull] IFormatProvider formatProvider);
+        void Render([NotNull] LogEvent @event, [NotNull] TextWriter writer, [CanBeNull] IFormatProvider formatProvider);
     }
 }

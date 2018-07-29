@@ -11,7 +11,7 @@ namespace Vostok.Logging.Formatting
         [NotNull]
         public static OutputTemplateBuilder Create() => new OutputTemplateBuilder();
 
-        [CanBeNull]
+        [NotNull]
         public static OutputTemplate Parse(string input) => throw new NotImplementedException();
 
         private readonly IList<ITemplateToken> tokens;

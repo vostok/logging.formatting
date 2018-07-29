@@ -1,14 +1,20 @@
 ﻿using System;
 using System.IO;
+using JetBrains.Annotations;
 using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    internal class NewlineToken : ITemplateToken
+    internal class NewlineToken : NamedToken
     {
-        public void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
+        public NewlineToken([CanBeNull] string format = null)
+            : base("NewLine", format)
         {
-            throw new NotImplementedException();
+        }
+
+        public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
+        {
+            writer.WriteLine();
         }
     }
 }

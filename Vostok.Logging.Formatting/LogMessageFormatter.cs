@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using Vostok.Logging.Formatting.Tokenizers;
+using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting
 {
     [PublicAPI]
     public static class LogMessageFormatter
     {
-        private static readonly ITemplateTokenizer Tokenizer = new MessageTemplateTokenizer();
-
         public static string Format(
-            [CanBeNull] string template,
-            [CanBeNull] IReadOnlyDictionary<string, object> properties,
+            [NotNull] LogEvent @event,
             [CanBeNull] IFormatProvider formatProvider = null)
         {
             // TODO(iloktionov): Just use StringWriter built on a pooled StringBuilder here.
@@ -22,9 +19,8 @@ namespace Vostok.Logging.Formatting
         }
 
         public static void Format(
+            [NotNull] LogEvent @event,
             [NotNull] TextWriter writer,
-            [CanBeNull] string template,
-            [CanBeNull] IReadOnlyDictionary<string, object> properties,
             [CanBeNull] IFormatProvider formatProvider = null)
         {
             // TODO(iloktionov): 1. Lookup a template in cache.

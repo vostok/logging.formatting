@@ -7,35 +7,37 @@ namespace Vostok.Logging.Formatting.Tokens
 {
     internal class TextToken : ITemplateToken
     {
-        private readonly string text;
-        private readonly int offset;
-        private readonly int length;
-
         public TextToken([NotNull] string text, int offset, int length)
         {
-            this.text = text ?? throw new ArgumentNullException(nameof(text));
-            this.offset = offset;
-            this.length = length;
+            Text = text ?? throw new ArgumentNullException(nameof(text));
+            Offset = offset;
+            Length = length;
         }
+
+        public string Text { get; }
+
+        public int Offset { get; }
+
+        public int Length { get; }
 
         public void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            if (length == 0)
+            if (Length == 0)
                 return;
 
-            if (length == text.Length)
+            if (Length == Text.Length)
             {
-                writer.Write(text);
+                writer.Write(Text);
             }
             else
             {
-                for (var index = 0; index < length; index++)
+                for (var index = 0; index < Length; index++)
                 {
-                    writer.Write(text[offset + index]);
+                    writer.Write(Text[Offset + index]);
                 }
             }
         }
 
-        public override string ToString() => length == text.Length ? text : text.Substring(offset, length);
+        public override string ToString() => Length == Text.Length ? Text : Text.Substring(Offset, Length);
     }
 }
