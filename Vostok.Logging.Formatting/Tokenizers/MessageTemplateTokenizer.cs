@@ -7,6 +7,8 @@ namespace Vostok.Logging.Formatting.Tokenizers
     {
         public IEnumerable<ITemplateToken> Tokenize(string template)
         {
+            // TODO(iloktionov): Only use TextToken and PropertyToken here.
+
             throw new System.NotImplementedException();
         }
     }
