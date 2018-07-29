@@ -1,0 +1,18 @@
+notests *default:
+  build:
+    target: Vostok.Logging.Formatting.sln
+    configuration: NoTests
+    tool:
+      name: dotnet
+
+  install:
+    - Vostok.Logging.Formatting/bin/Release/netstandard2.0/Vostok.Logging.Formatting.dll
+
+  deps:
+    - vostok.logging.abstractions@dev
+    - vostok.devtools
+
+full-build > notests:
+  build:
+    target: Vostok.Logging.Formatting.sln
+    configuration: Release
