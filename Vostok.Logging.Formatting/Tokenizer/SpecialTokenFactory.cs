@@ -34,10 +34,10 @@ namespace Vostok.Logging.Formatting.Tokenizer
 
         private static IEnumerable<Type> GetSpecialTokenTypes()
         {
-            return typeof (ITemplateToken)
+            return typeof (NamedToken)
                 .Assembly
                 .GetTypes()
-                .Where(type => type.IsAssignableFrom(typeof (NamedToken)))
+                .Where(type => typeof (NamedToken).IsAssignableFrom(type))
                 .Where(type => type != typeof (NamedToken))
                 .Where(type => type != typeof (PropertyToken))
                 .Where(type => !type.IsAbstract);

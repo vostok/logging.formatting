@@ -14,6 +14,13 @@ namespace Vostok.Logging.Formatting.Tokens
             Length = length;
         }
 
+        public TextToken([NotNull] string text)
+        {
+            Text = text ?? throw new ArgumentNullException(nameof(text));
+            Offset = 0;
+            Length = text.Length;
+        }
+
         public string Text { get; }
 
         public int Offset { get; }
