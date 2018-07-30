@@ -295,7 +295,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
 
         private static void Test(string template, params ITemplateToken[] expectedTokens)
         {
-            var actualTokens = TemplateTokenizer.Tokenize(template, new PropertyTokenFactory()).ToArray();
+            var actualTokens = TemplateTokenizer.Tokenize(template, new PropertyTokensFactory()).ToArray();
 
             actualTokens.Should().HaveCount(expectedTokens.Length);
 

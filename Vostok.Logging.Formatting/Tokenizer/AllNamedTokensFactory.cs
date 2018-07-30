@@ -8,11 +8,11 @@ using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting.Tokenizer
 {
-    internal class SpecialTokenFactory : INamedTokenFactory
+    internal class AllNamedTokensFactory : INamedTokenFactory
     {
         private static readonly Dictionary<string, Func<string, ITemplateToken>> SpecialTokens;
 
-        static SpecialTokenFactory()
+        static AllNamedTokensFactory()
         {
             SpecialTokens = new Dictionary<string, Func<string, ITemplateToken>>(StringComparer.OrdinalIgnoreCase);
 

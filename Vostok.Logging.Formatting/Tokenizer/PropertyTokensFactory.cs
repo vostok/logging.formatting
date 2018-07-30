@@ -2,7 +2,7 @@
 
 namespace Vostok.Logging.Formatting.Tokenizer
 {
-    internal class PropertyTokenFactory : INamedTokenFactory
+    internal class PropertyTokensFactory : INamedTokenFactory
     {
         public ITemplateToken Create(string name, string format)
         {

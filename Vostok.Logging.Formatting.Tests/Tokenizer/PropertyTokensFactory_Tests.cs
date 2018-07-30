@@ -6,14 +6,14 @@ using Vostok.Logging.Formatting.Tokens;
 namespace Vostok.Logging.Formatting.Tests.Tokenizer
 {
     [TestFixture]
-    internal class PropertyTokenFactory_Tests
+    internal class PropertyTokensFactory_Tests
     {
-        private PropertyTokenFactory factory;
+        private PropertyTokensFactory factory;
 
         [SetUp]
         public void TestSetup()
         {
-            factory = new PropertyTokenFactory();
+            factory = new PropertyTokensFactory();
         }
 
         [Test]
