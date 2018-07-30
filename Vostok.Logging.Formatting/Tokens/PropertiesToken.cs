@@ -5,10 +5,11 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class PropertiesToken : NamedToken
     {
         public PropertiesToken([CanBeNull] string format = null)
-            : base("Properties", format)
+            : base(TokenNames.Properties, format)
         {
         }
 

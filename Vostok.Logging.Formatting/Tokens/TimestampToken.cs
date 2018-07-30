@@ -9,7 +9,7 @@ namespace Vostok.Logging.Formatting.Tokens
     internal class TimestampToken : NamedToken
     {
         public TimestampToken([CanBeNull] string format = null)
-            : base("Timestamp", format)
+            : base(TokenNames.Timestamp, format)
         {
         }
 

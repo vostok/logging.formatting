@@ -5,10 +5,11 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class MessageToken : NamedToken
     {
         public MessageToken([CanBeNull] string format = null)
-            : base("Message", format)
+            : base(TokenNames.Message, format)
         {
         }
 

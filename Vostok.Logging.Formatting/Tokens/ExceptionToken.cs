@@ -5,10 +5,11 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class ExceptionToken : NamedToken
     {
         public ExceptionToken([CanBeNull] string format = null)
-            : base("Exception", format)
+            : base(TokenNames.Exception, format)
         {
         }
 
