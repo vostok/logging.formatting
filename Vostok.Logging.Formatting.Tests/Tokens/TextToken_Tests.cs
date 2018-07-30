@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
+using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting.Tests.Tokens
@@ -18,7 +20,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             var token = new TextToken(text, offset, length);
 
-            token.Render(null, writer, null);
+            token.Render(new LogEvent(LogLevel.Debug, DateTimeOffset.UtcNow, null), writer, null);
 
             token.ToString().Should().Be(expected);
 

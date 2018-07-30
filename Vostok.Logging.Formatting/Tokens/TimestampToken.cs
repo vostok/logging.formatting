@@ -5,6 +5,7 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class TimestampToken : NamedToken
     {
         public TimestampToken([CanBeNull] string format = null)
@@ -14,7 +15,7 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            throw new NotImplementedException();
+            writer.Write(@event.Timestamp.ToString(Format, formatProvider));
         }
     }
 }
