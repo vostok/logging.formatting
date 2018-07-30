@@ -5,6 +5,7 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class NewlineToken : NamedToken
     {
         public NewlineToken([CanBeNull] string format = null)
