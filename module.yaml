@@ -9,7 +9,7 @@ notests *default:
     - Vostok.Logging.Formatting/bin/Release/netstandard2.0/Vostok.Logging.Formatting.dll
 
   deps:
-    - vostok.logging.abstractions@dev
+    - vostok.logging.abstractions
     - vostok.devtools
 
 full-build > notests:
