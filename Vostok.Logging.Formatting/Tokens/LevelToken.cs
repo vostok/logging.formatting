@@ -7,6 +7,7 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    [UsedImplicitly]
     internal class LevelToken : NamedToken
     {
         private static readonly Dictionary<LogLevel, string> RenderedLevels;
