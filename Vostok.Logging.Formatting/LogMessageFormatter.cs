@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Formatting.Tokenizer;
 
 namespace Vostok.Logging.Formatting
 {
     [PublicAPI]
     public static class LogMessageFormatter
     {
+        private static readonly INamedTokenFactory TokenFactory = new PropertyTokensFactory();
+
         public static string Format(
             [NotNull] LogEvent @event,
             [CanBeNull] IFormatProvider formatProvider = null)
@@ -23,11 +25,12 @@ namespace Vostok.Logging.Formatting
             [NotNull] TextWriter writer,
             [CanBeNull] IFormatProvider formatProvider = null)
         {
-            // TODO(iloktionov): 1. Lookup a template in cache.
-            // TODO(iloktionov): 2. If there's nothing in cache, tokenize the template and attempt to save the result to cache.
-            // TODO(iloktionov): 3. Just render using the template.
+            // TODO(iloktionov): template caching
 
-            throw new NotImplementedException();
+            foreach (var token in TemplateTokenizer.Tokenize(@event.MessageTemplate, TokenFactory))
+            {
+                token.Render(@event, writer, formatProvider);
+            }
         }
     }
 }
