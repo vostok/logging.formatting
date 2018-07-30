@@ -12,9 +12,18 @@ namespace Vostok.Logging.Formatting.Helpers
             [CanBeNull] string format, 
             [CanBeNull] IFormatProvider formatProvider)
         {
-            // TODO(iloktionov): Wisely choose between ToString(), IFormattable and JSON here.
+            if (value == null)
+                return;
 
-            throw new NotImplementedException();
+            if (value is IFormattable formattable)
+            {
+                writer.Write(formattable.ToString(format, formatProvider));
+                return;
+            }
+
+            writer.Write(value.ToString());
+
+            // TODO(iloktionov): Wisely choose between ToString(), IFormattable and JSON here.
         }
     }
 }
