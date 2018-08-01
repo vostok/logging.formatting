@@ -5,6 +5,8 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
+    // TODO(iloktionov): Do not render properties present elsewhere in the output template.
+
     [UsedImplicitly]
     internal class PropertiesToken : NamedToken
     {
@@ -15,7 +17,11 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            throw new NotImplementedException();
+            var properties = @event.Properties;
+            if (properties == null || properties.Count == 0)
+                return;
+
+            PropertyValueFormatter.Format(writer, @event.Properties, Format, formatProvider);
         }
     }
 }
