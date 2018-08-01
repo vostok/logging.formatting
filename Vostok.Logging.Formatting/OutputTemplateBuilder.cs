@@ -47,7 +47,7 @@ namespace Vostok.Logging.Formatting
             => AddToken(new PropertyToken(name, format));
 
         /// <summary>
-        /// Adds a token which emits all of event's <see cref="LogEvent.Properties"/> not mentioned elsewhere in the template.
+        /// Adds a token which emits all of event's <see cref="LogEvent.Properties"/>.
         /// </summary>
         public OutputTemplateBuilder AddAllProperties()
             => AddToken(new PropertiesToken());
