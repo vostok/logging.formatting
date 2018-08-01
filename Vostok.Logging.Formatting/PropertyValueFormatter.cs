@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
 using Vostok.Logging.Formatting.Helpers;
@@ -64,7 +65,7 @@ namespace Vostok.Logging.Formatting
             }
             else if (value is IFormattable formattable)
             {
-                writer.Write(formattable.ToString(format, formatProvider));
+                writer.Write(formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture));
             }
             else if (HasCustomToString(valueType = value.GetType()))
             {

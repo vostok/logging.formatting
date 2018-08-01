@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
@@ -45,7 +46,9 @@ namespace Vostok.Logging.Formatting.Tests
         [TestCase((uint) 123L, "123")]
         [TestCase((ulong) 123L, "123")]
         [TestCase('a', "a")]
-        public void Should_format_primitive_types_with_tostring(object value, string expected)
+        [TestCase((float) 3.14, "3.14")]
+        [TestCase(3.14d, "3.14")]
+        public void Should_format_primitive_types_with_tostring_and_invariant_culture(object value, string expected)
         {
             Format(value).Should().Be(expected);
         }
@@ -59,28 +62,28 @@ namespace Vostok.Logging.Formatting.Tests
         }
 
         [Test]
-        public void Should_format_timespans_with_tostring()
+        public void Should_format_timespans_with_tostring_and_invariant_culture()
         {
             var value = 5.Hours();
 
-            Format(value).Should().Be(value.ToString());
+            Format(value).Should().Be(value.ToString(null, CultureInfo.InvariantCulture));
         }
 
         [Test]
-        public void Should_format_datetimes_with_tostring()
+        public void Should_format_datetimes_with_tostring_and_invariant_culture()
         {
             var value = DateTime.Now;
 
-            Format(value).Should().Be(value.ToString());
+            Format(value).Should().Be(value.ToString(CultureInfo.InvariantCulture));
         }
 
 
         [Test]
-        public void Should_format_datetimeoffsets_with_tostring()
+        public void Should_format_datetimeoffsets_with_tostring_and_invariant_culture()
         {
             var value = DateTimeOffset.Now;
 
-            Format(value).Should().Be(value.ToString());
+            Format(value).Should().Be(value.ToString(CultureInfo.InvariantCulture));
         }
 
         [Test]
