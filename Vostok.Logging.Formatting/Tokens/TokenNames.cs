@@ -20,6 +20,8 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public const string Timestamp = "Timestamp";
 
+        public const string Uptime = "Uptime";
+
         public const string Prefix = "Prefix";
     }
 }

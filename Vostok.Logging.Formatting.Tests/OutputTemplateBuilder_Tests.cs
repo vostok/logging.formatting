@@ -40,6 +40,14 @@ namespace Vostok.Logging.Formatting.Tests
         }
 
         [Test]
+        public void AddUptime_should_add_an_uptime_token_with_given_format()
+        {
+            builder.AddUptime("D10");
+
+            builder.Build().Tokens.Should().ContainSingle().Which.Should().BeOfType<UptimeToken>().Which.Format.Should().Be("D10");
+        }
+
+        [Test]
         public void AddProperty_should_add_a_property_token_with_given_named_and_format()
         {
             builder.AddProperty("prop", "format");

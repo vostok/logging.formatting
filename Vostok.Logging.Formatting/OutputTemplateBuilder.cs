@@ -35,6 +35,12 @@ namespace Vostok.Logging.Formatting
             => AddToken(new TimestampToken(format));
 
         /// <summary>
+        /// Adds a token which emits current process uptime measured in milliseconds and formatted in given <paramref name="format"/>.
+        /// </summary>
+        public OutputTemplateBuilder AddUptime([CanBeNull] string format = null)
+            => AddToken(new UptimeToken(format));
+
+        /// <summary>
         /// Adds a token which emits a property with given <paramref name="name"/> from event's <see cref="LogEvent.Properties"/> in given <paramref name="format"/>.
         /// </summary>
         public OutputTemplateBuilder AddProperty([NotNull] string name, [CanBeNull] string format = null)

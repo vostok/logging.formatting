@@ -14,6 +14,7 @@ namespace Vostok.Logging.Formatting
     /// <para>Properties are supplied from event <see cref="LogEvent.Properties"/>, but there are a number of special predefined ones:</para>
     /// <list type="bullet">
     ///     <item><c>{Timestamp:format}</c> - inserts <see cref="LogEvent.Timestamp"/> formatted with given optional <c>format</c>. Default format is <c>yyyy-MM-dd HH:mm:ss,fff</c>.<para/></item>
+    ///     <item><c>{Uptime:format}</c> - inserts a current process uptime measured in milliseconds and formatted with given optional <c>format</c>.<para/></item>
     ///     <item><c>{Level}</c> - inserts <see cref="LogEvent.Level"/> in upper case (such as <c>INFO</c>).<para/></item>
     ///     <item><c>{Message}</c> - inserts log message rendered from <see cref="LogEvent.MessageTemplate"/> and <see cref="LogEvent.Properties"/> using <see cref="LogMessageFormatter"/>.<para/></item>
     ///     <item><c>{NewLine}</c> - inserts a platform-dependent newline.<para/></item>
@@ -34,10 +35,10 @@ namespace Vostok.Logging.Formatting
             = new OutputTemplate(new ITemplateToken[] {});
 
         /// <summary>
-        /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
+        /// A default template with following representation: <c>{Timestamp} {Uptime} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
         public static readonly OutputTemplate Default 
-            = Parse($"{{{TokenNames.Timestamp}}} {{{TokenNames.Level}}} {{{TokenNames.Prefix}}}" +
+            = Parse($"{{{TokenNames.Timestamp}}} {{{TokenNames.Uptime}}} {{{TokenNames.Level}}} {{{TokenNames.Prefix}}}" +
                     $"{{{TokenNames.Message}}}{{{TokenNames.NewLine}}}{{{TokenNames.Exception}}}");
 
         /// <summary>

@@ -38,23 +38,30 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         }
 
         [Test]
-        public void Should_newline_message_token_with_given_format()
+        public void Should_create_newline_token_with_given_format()
         {
             factory.Create(TokenNames.NewLine, "format").Should().BeOfType<NewlineToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
-        public void Should_newline_properties_token_with_given_format()
+        public void Should_create_properties_token_with_given_format()
         {
             factory.Create(TokenNames.Properties, "format").Should().BeOfType<PropertiesToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
-        public void Should_newline_timestamp_token_with_given_format()
+        public void Should_create_timestamp_token_with_given_format()
         {
             factory.Create(TokenNames.Timestamp, "format").Should().BeOfType<TimestampToken>()
+                .Which.Format.Should().Be("format");
+        }
+
+        [Test]
+        public void Should_create_uptime_token_with_given_format()
+        {
+            factory.Create(TokenNames.Uptime, "format").Should().BeOfType<UptimeToken>()
                 .Which.Format.Should().Be("format");
         }
 
