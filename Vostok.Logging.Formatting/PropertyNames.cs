@@ -1,12 +1,12 @@
 ﻿using JetBrains.Annotations;
 
-namespace Vostok.Logging.Formatting.Tokens
+namespace Vostok.Logging.Formatting
 {
     /// <summary>
     /// Defines names of special well-known properties in for <see cref="OutputTemplate"/>.
     /// </summary>
     [PublicAPI]
-    public static class TokenNames
+    public static class PropertyNames
     {
         public const string Exception = "Exception";
 

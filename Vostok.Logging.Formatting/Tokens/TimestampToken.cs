@@ -11,7 +11,7 @@ namespace Vostok.Logging.Formatting.Tokens
         public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
 
         public TimestampToken([CanBeNull] string format = null)
-            : base(TokenNames.Timestamp, format ?? DefaultFormat)
+            : base(PropertyNames.Timestamp, format ?? DefaultFormat)
         {
         }
 

@@ -19,49 +19,49 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         [Test]
         public void Should_create_exception_token_with_given_format()
         {
-            factory.Create(TokenNames.Exception, "format").Should().BeOfType<ExceptionToken>()
+            factory.Create(PropertyNames.Exception, "format").Should().BeOfType<ExceptionToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_level_token_with_given_format()
         {
-            factory.Create(TokenNames.Level, "format").Should().BeOfType<LevelToken>()
+            factory.Create(PropertyNames.Level, "format").Should().BeOfType<LevelToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_message_token_with_given_format()
         {
-            factory.Create(TokenNames.Message, "format").Should().BeOfType<MessageToken>()
+            factory.Create(PropertyNames.Message, "format").Should().BeOfType<MessageToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_newline_token_with_given_format()
         {
-            factory.Create(TokenNames.NewLine, "format").Should().BeOfType<NewlineToken>()
+            factory.Create(PropertyNames.NewLine, "format").Should().BeOfType<NewlineToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_properties_token_with_given_format()
         {
-            factory.Create(TokenNames.Properties, "format").Should().BeOfType<PropertiesToken>()
+            factory.Create(PropertyNames.Properties, "format").Should().BeOfType<PropertiesToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_timestamp_token_with_given_format()
         {
-            factory.Create(TokenNames.Timestamp, "format").Should().BeOfType<TimestampToken>()
+            factory.Create(PropertyNames.Timestamp, "format").Should().BeOfType<TimestampToken>()
                 .Which.Format.Should().Be("format");
         }
 
         [Test]
         public void Should_create_uptime_token_with_given_format()
         {
-            factory.Create(TokenNames.Uptime, "format").Should().BeOfType<UptimeToken>()
+            factory.Create(PropertyNames.Uptime, "format").Should().BeOfType<UptimeToken>()
                 .Which.Format.Should().Be("format");
         }
 
@@ -74,10 +74,10 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         [Test]
         public void Should_be_case_insensitive_for_special_token_names()
         {
-            factory.Create(TokenNames.Timestamp.ToLowerInvariant(), "format").Should().BeOfType<TimestampToken>()
+            factory.Create(PropertyNames.Timestamp.ToLowerInvariant(), "format").Should().BeOfType<TimestampToken>()
                 .Which.Format.Should().Be("format");
 
-            factory.Create(TokenNames.Message.ToUpperInvariant(), "format").Should().BeOfType<MessageToken>()
+            factory.Create(PropertyNames.Message.ToUpperInvariant(), "format").Should().BeOfType<MessageToken>()
                 .Which.Format.Should().Be("format");
         }
     }

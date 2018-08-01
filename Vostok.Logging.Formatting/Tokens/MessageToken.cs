@@ -9,7 +9,7 @@ namespace Vostok.Logging.Formatting.Tokens
     internal class MessageToken : NamedToken
     {
         public MessageToken([CanBeNull] string format = null)
-            : base(TokenNames.Message, format)
+            : base(PropertyNames.Message, format)
         {
         }
 

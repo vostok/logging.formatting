@@ -9,7 +9,7 @@ namespace Vostok.Logging.Formatting.Tokens
     internal class NewlineToken : NamedToken
     {
         public NewlineToken([CanBeNull] string format = null)
-            : base(TokenNames.NewLine, format)
+            : base(PropertyNames.NewLine, format)
         {
         }
 

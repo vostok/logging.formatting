@@ -38,8 +38,9 @@ namespace Vostok.Logging.Formatting
         /// A default template with following representation: <c>{Timestamp} {Uptime} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
         public static readonly OutputTemplate Default 
-            = Parse($"{{{TokenNames.Timestamp}}} {{{TokenNames.Uptime}}} {{{TokenNames.Level}}} {{{TokenNames.Prefix}}}" +
-                    $"{{{TokenNames.Message}}}{{{TokenNames.NewLine}}}{{{TokenNames.Exception}}}");
+            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Uptime}}} " +
+                    $"{{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
+                    $"{{{PropertyNames.Message}}}{{{PropertyNames.NewLine}}}{{{PropertyNames.Exception}}}");
 
         /// <summary>
         /// Creates a builder which can be used to construct <see cref="OutputTemplate"/> without going through string parsing.

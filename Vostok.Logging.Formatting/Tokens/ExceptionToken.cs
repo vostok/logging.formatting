@@ -11,7 +11,7 @@ namespace Vostok.Logging.Formatting.Tokens
         private const int MaximumDepth = 10;
 
         public ExceptionToken([CanBeNull] string format = null)
-            : base(TokenNames.Exception, format)
+            : base(PropertyNames.Exception, format)
         {
         }
 

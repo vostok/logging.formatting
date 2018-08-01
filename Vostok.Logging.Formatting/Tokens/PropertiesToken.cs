@@ -9,7 +9,7 @@ namespace Vostok.Logging.Formatting.Tokens
     internal class PropertiesToken : NamedToken
     {
         public PropertiesToken([CanBeNull] string format = null)
-            : base(TokenNames.Properties, format)
+            : base(PropertyNames.Properties, format)
         {
         }
 
