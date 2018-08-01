@@ -24,8 +24,9 @@ namespace Vostok.Logging.Formatting
             [CanBeNull] IFormatProvider formatProvider = null)
         {
             var builder = StringBuilderCache.Acquire(StringBuilderCapacity);
+            var writer = new StringWriter(builder);
 
-            Format(new StringWriter(builder), value, format, formatProvider);
+            Format(writer, value, format, formatProvider);
 
             StringBuilderCache.Release(builder);
 

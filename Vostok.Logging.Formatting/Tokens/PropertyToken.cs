@@ -14,7 +14,13 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            throw new NotImplementedException();
+            if (@event.Properties == null)
+                return;
+
+            if (@event.Properties.TryGetValue(Name, out var value))
+            {
+                PropertyValueFormatter.Format(writer, value, Format, formatProvider);
+            }
         }
     }
 }
