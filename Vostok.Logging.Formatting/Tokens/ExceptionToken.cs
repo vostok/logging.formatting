@@ -15,6 +15,9 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
+            if (@event.Exception == null)
+                return;
+
             // TODO(iloktionov): render without using Exception's ToString()
 
             throw new NotImplementedException();

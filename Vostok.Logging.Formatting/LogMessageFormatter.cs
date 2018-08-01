@@ -10,8 +10,9 @@ using Vostok.Logging.Formatting.Tokens;
 namespace Vostok.Logging.Formatting
 {
     /// <summary>
-    /// <para>Represents a helper used to render log event messages.</para>
+    /// <para>Represents a helper used to render log event messages into text.</para>
     /// <para>See <see cref="Format(LogEvent,TextWriter,IFormatProvider)"/> method for details.</para>
+    /// <para>See <see cref="OutputTemplate"/> method for template syntax.</para>
     /// </summary>
     [PublicAPI]
     public static class LogMessageFormatter
@@ -42,11 +43,11 @@ namespace Vostok.Logging.Formatting
         }
 
         /// <summary>
-        /// <para>Renders given <paramref name="event"/>'s the message using its <see cref="LogEvent.MessageTemplate"/> and <see cref="LogEvent.Properties"/>.</para>
+        /// <para>Renders given <paramref name="event"/>'s message using its <see cref="LogEvent.MessageTemplate"/> and <see cref="LogEvent.Properties"/>.</para>
         /// <para>Performs substitution of property placeholders present in message template.</para>
-        /// <para>Properties are defined in template with following syntax: '{name:format}'. Format part is optional.</para>
+        /// <para>Uses template syntax defined for <see cref="OutputTemplate"/> (with one key difference outlined below).</para>
         /// <para>Unlike to <see cref="LogEventFormatter"/>, there are no special predefined properties during message formatting. Only event properties are used.</para>
-        /// <para>Example message template: 'Hello, {User}! You have {UnreadCount:D5} messages to read.'</para>
+        /// <para>Example message template: <c>'Hello, {User}! You have {UnreadCount:D5} messages to read.'</c></para>
         /// </summary>
         public static void Format(
             [NotNull] LogEvent @event,

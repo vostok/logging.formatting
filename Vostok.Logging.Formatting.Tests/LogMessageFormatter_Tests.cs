@@ -20,5 +20,15 @@ namespace Vostok.Logging.Formatting.Tests
                 LogMessageFormatter.Format(@event).Should().Be("Hello, Kontur! You have 00050 messages to read.");
             }
         }
+
+        [Test]
+        public void Should_respect_case_sensitivity_in_templates()
+        {
+            var event1 = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User}!").WithProperty("User", "Kontur");
+            var event2 = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "HELLO, {User}!").WithProperty("User", "Kontur");
+
+            LogMessageFormatter.Format(event1).Should().Be("Hello, Kontur!");
+            LogMessageFormatter.Format(event2).Should().Be("HELLO, Kontur!");
+        }
     }
 }
