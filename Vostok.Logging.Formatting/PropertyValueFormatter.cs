@@ -34,7 +34,7 @@ namespace Vostok.Logging.Formatting
         }
 
         /// <summary>
-        /// <para>Formats given property <paramref name="value"/> into <paramref name="writer"/>.</para>
+        /// <para>Formats given property <paramref name="value"/>.</para>
         /// <para>Here's how it works:</para>
         /// <list type="number">
         ///     <item>If <paramref name="value"/> is <c>null</c>, nothing happens. <para/></item>
