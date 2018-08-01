@@ -8,6 +8,8 @@ namespace Vostok.Logging.Formatting.Tokens
     [UsedImplicitly]
     internal class ExceptionToken : NamedToken
     {
+        private const int MaximumDepth = 10;
+
         public ExceptionToken([CanBeNull] string format = null)
             : base(TokenNames.Exception, format)
         {
@@ -15,12 +17,47 @@ namespace Vostok.Logging.Formatting.Tokens
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            if (@event.Exception == null)
+            RenderException(@event.Exception, writer, 0);
+        }
+
+        private static void RenderException(Exception error, TextWriter writer, int depth)
+        {
+            if (error == null)
                 return;
 
-            // TODO(iloktionov): render without using Exception's ToString()
+            if (depth > MaximumDepth)
+            {
+                writer.Write("<too deep>");
+                return;
+            }
 
-            throw new NotImplementedException();
+            writer.Write(error.GetType().ToString());
+
+            var errorMessage = error.Message;
+            if (errorMessage != null)
+            {
+                writer.Write(": ");
+                writer.Write(errorMessage);
+            }
+
+            var innerError = error.InnerException;
+            if (innerError != null)
+            {
+                writer.Write(" ---> ");
+
+                RenderException(innerError, writer, depth + 1);
+
+                writer.WriteLine();
+                writer.Write("   ");
+                writer.Write("--- End of inner exception stack trace ---");
+            }
+
+            var stackTrace = error.StackTrace;
+            if (stackTrace != null)
+            {
+                writer.WriteLine();
+                writer.Write(stackTrace);
+            }
         }
     }
 }
