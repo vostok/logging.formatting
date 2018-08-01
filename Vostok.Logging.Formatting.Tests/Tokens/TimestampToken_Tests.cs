@@ -23,13 +23,13 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         }
 
         [Test]
-        public void Should_render_event_timestamp_without_format_correctly()
+        public void Should_render_event_timestamp_without_format_using_default_format()
         {
             new TimestampToken().Render(@event, writer, null);
 
             Console.Out.WriteLine(writer.ToString());
 
-            writer.ToString().Should().Be(@event.Timestamp.ToString());
+            writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             Console.Out.WriteLine(writer.ToString());
 
-            writer.ToString().Should().Be(@event.Timestamp.ToString(null, formatProvider));
+            writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat, formatProvider));
         }
 
         [Test]

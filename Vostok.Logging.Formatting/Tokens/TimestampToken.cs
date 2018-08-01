@@ -8,8 +8,10 @@ namespace Vostok.Logging.Formatting.Tokens
     [UsedImplicitly]
     internal class TimestampToken : NamedToken
     {
+        public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
+
         public TimestampToken([CanBeNull] string format = null)
-            : base(TokenNames.Timestamp, format)
+            : base(TokenNames.Timestamp, format ?? DefaultFormat)
         {
         }
 
