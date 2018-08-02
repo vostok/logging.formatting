@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Logging.Formatting.Helpers;
 
@@ -44,6 +45,14 @@ namespace Vostok.Logging.Formatting.Tests.Helpers
                 .Should().BeEmpty();
         }
 
+        [Test]
+        public void Should_return_error_messages_as_values_for_failing_properties()
+        {
+            ObjectPropertiesExtractor.ExtractProperties(new ThrowingProperty())
+                .Should()
+                .Equal(("A", "<error: 123>"));
+        }
+
         private class Container
         {
             public int A => 1;
@@ -64,6 +73,11 @@ namespace Vostok.Logging.Formatting.Tests.Helpers
         private class PrivateField
         {
             private int A = 1;
+        }
+
+        private class ThrowingProperty
+        {
+            public int A => throw new Exception("123");
         }
     }
 }

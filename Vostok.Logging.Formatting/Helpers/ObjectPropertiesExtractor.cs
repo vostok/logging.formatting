@@ -22,7 +22,7 @@ namespace Vostok.Logging.Formatting.Helpers
         {
             foreach (var (name, getter) in Cache.Obtain(@object.GetType(), obj => LocateProperties(obj)))
             {
-                yield return (name, getter(@object));
+                yield return (name, ObtainPropertyValue(@object, getter));
             }
         }
 
@@ -57,6 +57,18 @@ namespace Vostok.Logging.Formatting.Helpers
             catch
             {
                 return new (string, Func<object, object>)[]{};
+            }
+        }
+
+        private static object ObtainPropertyValue(object @object, Func<object, object> getter)
+        {
+            try
+            {
+                return getter(@object);
+            }
+            catch (Exception error)
+            {
+                return $"<error: {error.Message}>";
             }
         }
     }
