@@ -34,12 +34,11 @@ namespace Vostok.Logging.Formatting
         public static readonly OutputTemplate Empty = new OutputTemplate(Array.Empty<ITemplateToken>());
 
         /// <summary>
-        /// A default template with following representation: <c>{Timestamp} {Uptime} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
+        /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
-        public static readonly OutputTemplate Default
-            = Parse(
-                $"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Uptime}}} {{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
-                $"{{{PropertyNames.Message}}}{{{PropertyNames.NewLine}}}{{{PropertyNames.Exception}}}");
+        public static readonly OutputTemplate Default 
+            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
+                    $"{{{PropertyNames.Message}}}{{{PropertyNames.NewLine}}}{{{PropertyNames.Exception}}}");
 
         /// <summary>
         /// Creates a builder which can be used to construct <see cref="OutputTemplate"/> without going through string parsing.
