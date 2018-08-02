@@ -5,7 +5,7 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    // TODO(iloktionov): Do not render properties present elsewhere in the output template.
+    // TODO(iloktionov): https://github.com/vostok/logging.formatting/issues/1
 
     [UsedImplicitly]
     internal class PropertiesToken : NamedToken
