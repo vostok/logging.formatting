@@ -22,6 +22,8 @@ namespace Vostok.Logging.Formatting
         {
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
+            if (template == null)
+                throw new ArgumentNullException(nameof(template));
 
             var builder = StringBuilderCache.Acquire(template.ToString().Length + @event.MessageTemplate?.Length ?? 0);
             var writer = new StringWriter(builder);
@@ -47,6 +49,10 @@ namespace Vostok.Logging.Formatting
         {
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+            if (template == null)
+                throw new ArgumentNullException(nameof(template));
 
             foreach (var token in template.Tokens)
             {

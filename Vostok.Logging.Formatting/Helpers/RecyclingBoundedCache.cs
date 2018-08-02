@@ -38,14 +38,14 @@ namespace Vostok.Logging.Formatting.Helpers
 
         private class RecyclingBoundedCacheState
         {
+            public readonly ConcurrentDictionary<TKey, TValue> Items;
+
+            public int Count;
+
             public RecyclingBoundedCacheState(IEqualityComparer<TKey> comparer)
             {
                 Items = new ConcurrentDictionary<TKey, TValue>(comparer);
             }
-
-            public readonly ConcurrentDictionary<TKey, TValue> Items;
-
-            public int Count;
         }
     }
 }

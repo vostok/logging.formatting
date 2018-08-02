@@ -38,6 +38,7 @@ namespace Vostok.Logging.Formatting.Tokens
             }
             else
             {
+                // TODO(krait): Benchmark.
                 for (var index = 0; index < Length; index++)
                 {
                     writer.Write(Text[Offset + index]);
@@ -45,6 +46,7 @@ namespace Vostok.Logging.Formatting.Tokens
             }
         }
 
-        public override string ToString() => Length == Text.Length ? Text : Text.Substring(Offset, Length);
+        public override string ToString() =>
+            Length == Text.Length ? Text : Text.Substring(Offset, Length);
     }
 }

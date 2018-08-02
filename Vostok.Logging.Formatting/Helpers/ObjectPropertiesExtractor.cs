@@ -39,15 +39,15 @@ namespace Vostok.Logging.Formatting.Helpers
                     .Where(property => !property.GetIndexParameters().Any())
                     .ToArray();
 
-                var getters = new(string, Func<object, object>)[properties.Length];
+                var getters = new (string, Func<object, object>)[properties.Length];
 
                 for (var i = 0; i < properties.Length; i++)
                 {
-                    var parameter = Expression.Parameter(typeof (object));
+                    var parameter = Expression.Parameter(typeof(object));
                     var convertedParameter = Expression.Convert(parameter, type);
 
                     var property = Expression.Property(convertedParameter, properties[i].Name);
-                    var convertedProperty = Expression.Convert(property, typeof (object));
+                    var convertedProperty = Expression.Convert(property, typeof(object));
 
                     getters[i] = (properties[i].Name, Expression.Lambda<Func<object, object>>(convertedProperty, parameter).Compile());
                 }
@@ -56,7 +56,7 @@ namespace Vostok.Logging.Formatting.Helpers
             }
             catch
             {
-                return new (string, Func<object, object>)[]{};
+                return Array.Empty<(string, Func<object, object>)>();
             }
         }
 

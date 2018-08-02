@@ -11,16 +11,12 @@ namespace Vostok.Logging.Formatting.Helpers
         private static readonly RecyclingBoundedCache<Type, bool> Cache
             = new RecyclingBoundedCache<Type, bool>(CacheCapacity);
 
-        private static readonly Type[] EmptyTypesArray = {};
-
-        public static bool HasCustomToString(Type type)
-        {
-            return Cache.Obtain(type, t => HasCustomToStringInternal(t));
-        }
+        public static bool HasCustomToString(Type type) =>
+            Cache.Obtain(type, t => HasCustomToStringInternal(t));
 
         private static bool HasCustomToStringInternal(Type type)
         {
-            var toStringMethod = type.GetMethod("ToString", EmptyTypesArray);
+            var toStringMethod = type.GetMethod("ToString", Array.Empty<Type>());
             if (toStringMethod == null)
                 return false;
 
@@ -30,8 +26,8 @@ namespace Vostok.Logging.Formatting.Helpers
 
             var declaringType = toStringMethod.DeclaringType;
 
-            return declaringType != typeof (object) && 
-                   declaringType != typeof (ValueType);
+            return declaringType != typeof(object) &&
+                   declaringType != typeof(ValueType);
         }
     }
 }

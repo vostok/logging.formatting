@@ -10,18 +10,20 @@ namespace Vostok.Logging.Formatting.Tokens
     [UsedImplicitly]
     internal class TimestampToken : NamedToken
     {
+        public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
+
         private static readonly IFormatProvider InvariantCulture = CultureInfo.InvariantCulture;
 
-        public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
+        private readonly bool hasCustomFormat;
 
         public TimestampToken([CanBeNull] string format = null)
             : base(PropertyNames.Timestamp, format)
         {
+            hasCustomFormat = Format != null && Format != DefaultFormat;
         }
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            var hasCustomFormat = Format != null && Format != DefaultFormat;
             var hasCustomFormatProvider = formatProvider != null && !ReferenceEquals(formatProvider, InvariantCulture);
 
             if (hasCustomFormat || hasCustomFormatProvider)
@@ -34,6 +36,7 @@ namespace Vostok.Logging.Formatting.Tokens
             }
         }
 
+        // TODO(krait): Benchmark.
         private static void FormatTimestampEfficiently(DateTime timestamp, TextWriter writer)
         {
             writer.Write(timestamp.Year.ToString(InvariantCulture));
@@ -47,10 +50,10 @@ namespace Vostok.Logging.Formatting.Tokens
 
             WriteNumberWithTwoDigitPadding(timestamp.Hour, writer);
             writer.Write(':');
-            
+
             WriteNumberWithTwoDigitPadding(timestamp.Minute, writer);
             writer.Write(':');
-            
+
             WriteNumberWithTwoDigitPadding(timestamp.Second, writer);
             writer.Write(',');
             WriteNumberWithThreeDigitPadding(timestamp.Millisecond, writer);

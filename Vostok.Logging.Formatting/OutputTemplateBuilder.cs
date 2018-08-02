@@ -5,6 +5,9 @@ using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting
 {
+    /// <summary>
+    /// A builder for <see cref="OutputTemplate"/>.
+    /// </summary>
     [PublicAPI]
     public class OutputTemplateBuilder
     {
@@ -13,7 +16,7 @@ namespace Vostok.Logging.Formatting
         /// <summary>
         /// Creates and returns an <see cref="OutputTemplate"/> assembled from all the parts added earlier.
         /// </summary>
-        public OutputTemplate Build() 
+        public OutputTemplate Build()
             => new OutputTemplate(tokens);
 
         /// <summary>

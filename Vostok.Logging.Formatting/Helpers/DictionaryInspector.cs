@@ -15,14 +15,14 @@ namespace Vostok.Logging.Formatting.Helpers
         private static readonly RecyclingBoundedCache<Type, DictionaryInfo> Cache
             = new RecyclingBoundedCache<Type, DictionaryInfo>(CacheCapacity);
 
-        public static bool IsSimpleDictionary(Type type) 
+        public static bool IsSimpleDictionary(Type type)
             => Cache.Obtain(type, t => TryDetectSimpleDictionary(t)).IsDictionary;
 
         public static IEnumerable<(string, object)> EnumerateSimpleDictionary(object dictionary)
         {
             var info = Cache.Obtain(dictionary.GetType(), t => TryDetectSimpleDictionary(t));
 
-            foreach (var pair in (IEnumerable) dictionary)
+            foreach (var pair in (IEnumerable)dictionary)
             {
                 if (pair?.GetType() == info.PairType)
                     yield return (info.KeyGetter(pair).ToString(), info.ValueGetter(pair));
@@ -36,7 +36,7 @@ namespace Vostok.Logging.Formatting.Helpers
                 var dictionaryInterface = type
                     .GetInterfaces()
                     .Where(iface => iface.IsGenericType)
-                    .Where(iface => iface.GetGenericTypeDefinition() == typeof (IReadOnlyDictionary<,>))
+                    .Where(iface => iface.GetGenericTypeDefinition() == typeof(IReadOnlyDictionary<,>))
                     .FirstOrDefault(iface => IsSimpleKeyType(iface.GenericTypeArguments[0]));
 
                 if (dictionaryInterface == null)
@@ -46,13 +46,13 @@ namespace Vostok.Logging.Formatting.Helpers
 
                 var keyType = dictionaryInterface.GenericTypeArguments[0];
                 var valueType = dictionaryInterface.GenericTypeArguments[1];
-                var pairType = result.PairType = typeof (KeyValuePair<,>).MakeGenericType(keyType, valueType);
+                var pairType = result.PairType = typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType);
 
-                var parameter = Expression.Parameter(typeof (object));
+                var parameter = Expression.Parameter(typeof(object));
                 var pair = Expression.Convert(parameter, pairType);
 
-                var keyProperty = Expression.Convert(Expression.Property(pair, "Key"), typeof (object));
-                var valueProperty = Expression.Convert(Expression.Property(pair, "Value"), typeof (object));
+                var keyProperty = Expression.Convert(Expression.Property(pair, "Key"), typeof(object));
+                var valueProperty = Expression.Convert(Expression.Property(pair, "Value"), typeof(object));
 
                 result.KeyGetter = Expression.Lambda<Func<object, object>>(keyProperty, parameter).Compile();
                 result.ValueGetter = Expression.Lambda<Func<object, object>>(valueProperty, parameter).Compile();
@@ -67,9 +67,9 @@ namespace Vostok.Logging.Formatting.Helpers
 
         private static bool IsSimpleKeyType(Type type)
         {
-            return type.IsPrimitive || 
-                   type.IsEnum || 
-                   type == typeof (string);
+            return type.IsPrimitive ||
+                   type.IsEnum ||
+                   type == typeof(string);
         }
 
         private struct DictionaryInfo

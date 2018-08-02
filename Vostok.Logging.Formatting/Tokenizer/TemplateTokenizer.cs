@@ -80,7 +80,6 @@ namespace Vostok.Logging.Formatting.Tokenizer
                 }
 
                 offset++;
-
             } while (offset < template.Length);
 
             next = offset;
@@ -125,13 +124,15 @@ namespace Vostok.Logging.Formatting.Tokenizer
             return CreateTextToken(template, rawOffset, rawLength);
         }
 
-        [CanBeNull] [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [CanBeNull]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static TextToken CreateTextToken(string template, int offset, int length)
         {
             return length == 0 ? null : new TextToken(template, offset, length);
         }
 
-        [CanBeNull] [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [CanBeNull]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static TextToken CreateTextToken(string template, int offset, int length, StringBuilder builder)
         {
             if (length == 0)
@@ -144,9 +145,9 @@ namespace Vostok.Logging.Formatting.Tokenizer
         }
 
         private static bool TryParseNamedToken(
-            string template, 
-            int offset, 
-            int length, 
+            string template,
+            int offset,
+            int length,
             out string name,
             out string format)
         {

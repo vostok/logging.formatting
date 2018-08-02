@@ -21,9 +21,7 @@ namespace Vostok.Logging.Formatting.Tokens
         {
         }
 
-        public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
-        {
+        public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider) =>
             writer.Write(Watch.ElapsedMilliseconds.ToString(Format));
-        }
     }
 }

@@ -34,25 +34,25 @@ namespace Vostok.Logging.Formatting.Tokenizer
 
         private static IEnumerable<Type> GetSpecialTokenTypes()
         {
-            return typeof (NamedToken)
+            return typeof(NamedToken)
                 .Assembly
                 .GetTypes()
-                .Where(type => typeof (NamedToken).IsAssignableFrom(type))
-                .Where(type => type != typeof (NamedToken))
-                .Where(type => type != typeof (PropertyToken))
+                .Where(type => typeof(NamedToken).IsAssignableFrom(type))
+                .Where(type => type != typeof(NamedToken))
+                .Where(type => type != typeof(PropertyToken))
                 .Where(type => !type.IsAbstract);
         }
 
         private static Func<string, ITemplateToken> CreateFactoryDelegate(Type tokenType)
         {
-            var constructor = tokenType.GetConstructor(new[] {typeof (string)});
+            var constructor = tokenType.GetConstructor(new[] {typeof(string)});
 
-            var formatExpression = Expression.Parameter(typeof (string));
+            var formatExpression = Expression.Parameter(typeof(string));
             var newExpression = Expression.New(constructor, formatExpression);
-            var castExpression = Expression.Convert(newExpression, typeof (ITemplateToken));
+            var castExpression = Expression.Convert(newExpression, typeof(ITemplateToken));
             var lambdaExpression = Expression.Lambda(castExpression, formatExpression);
 
-            return (Func<string, ITemplateToken>) lambdaExpression.Compile();
+            return (Func<string, ITemplateToken>)lambdaExpression.Compile();
         }
     }
 }

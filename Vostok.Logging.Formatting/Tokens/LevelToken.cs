@@ -18,7 +18,7 @@ namespace Vostok.Logging.Formatting.Tokens
 
             RenderedLevels = new Dictionary<LogLevel, string>();
 
-            foreach (var level in Enum.GetValues(typeof (LogLevel)).Cast<LogLevel>())
+            foreach (var level in Enum.GetValues(typeof(LogLevel)).Cast<LogLevel>())
                 RenderedLevels.Add(level, level.ToString().ToUpperInvariant().PadRight(maxNameLength));
         }
 
@@ -27,9 +27,7 @@ namespace Vostok.Logging.Formatting.Tokens
         {
         }
 
-        public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
-        {
+        public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider) =>
             writer.Write(RenderedLevels.TryGetValue(@event.Level, out var rendered) ? rendered : @event.Level.ToString());
-        }
     }
 }

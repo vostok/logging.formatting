@@ -38,14 +38,14 @@ namespace Vostok.Logging.Formatting
         /// <para>Formats given property <paramref name="value"/>.</para>
         /// <para>Here's how it works:</para>
         /// <list type="number">
-        ///     <item>If <paramref name="value"/> is <c>null</c>, nothing happens. <para/></item>
-        ///     <item>If <paramref name="value"/> is a <see cref="string"/>, it's written as is. <para/></item>
-        ///     <item>If <paramref name="value"/> implements <see cref="IFormattable"/>, it's formatted using given <paramref name="format"/> and <paramref name="formatProvider"/>. <para/></item>
-        ///     <item>If <paramref name="value"/>'s type explicitly overrides <see cref="Object.ToString"/>, we just use that. <para/></item>
-        ///     <item>If <paramref name="value"/> implements <see cref="IReadOnlyDictionary{TKey,TValue}"/>, it's formatted as a JSON object. <para/></item>
-        ///     <item>If <paramref name="value"/> implements <see cref="IEnumerable"/>, it's formatted as a JSON array. <para/></item>
-        ///     <item>If <paramref name="value"/>'s type has any properties with public getters, it's formatted as JSON object. <para/></item>
-        ///     <item>If nothing of above applies, default <see cref="Object.ToString"/> result is used. <para/></item>
+        ///     <item><description>If <paramref name="value"/> is <c>null</c>, nothing happens. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/> is a <see cref="string"/>, it's written as is. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/> implements <see cref="IFormattable"/>, it's formatted using given <paramref name="format"/> and <paramref name="formatProvider"/>. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/>'s type explicitly overrides <see cref="Object.ToString"/>, we just use that. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/> implements <see cref="IReadOnlyDictionary{TKey,TValue}"/>, it's formatted as a JSON object. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/> implements <see cref="IEnumerable"/>, it's formatted as a JSON array. <para/></description></item>
+        ///     <item><description>If <paramref name="value"/>'s type has any properties with public getters, it's formatted as JSON object. <para/></description></item>
+        ///     <item><description>If nothing of above applies, default <see cref="Object.ToString"/> result is used. <para/></description></item>
         /// </list>
         /// </summary>
         public static void Format(
@@ -54,6 +54,9 @@ namespace Vostok.Logging.Formatting
             [CanBeNull] string format = null,
             [CanBeNull] IFormatProvider formatProvider = null)
         {
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
             if (value == null)
                 return;
 

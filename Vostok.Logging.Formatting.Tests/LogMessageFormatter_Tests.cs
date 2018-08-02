@@ -30,5 +30,13 @@ namespace Vostok.Logging.Formatting.Tests
             LogMessageFormatter.Format(event1).Should().Be("Hello, Kontur!");
             LogMessageFormatter.Format(event2).Should().Be("HELLO, Kontur!");
         }
+
+        [Test]
+        public void Should_support_null_message_template()
+        {
+            var event1 = new LogEvent(LogLevel.Info, DateTimeOffset.Now, null);
+
+            LogMessageFormatter.Format(event1).Should().BeEmpty();
+        }
     }
 }

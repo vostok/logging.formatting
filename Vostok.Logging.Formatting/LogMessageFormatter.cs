@@ -32,7 +32,10 @@ namespace Vostok.Logging.Formatting
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
 
-            var builder = StringBuilderCache.Acquire((@event.MessageTemplate?.Length ?? 4) * 2);
+            if (@event.MessageTemplate == null)
+                return "";
+
+            var builder = StringBuilderCache.Acquire(@event.MessageTemplate.Length * 2);
             var writer = new StringWriter(builder);
 
             Format(@event, writer, formatProvider);
@@ -56,6 +59,11 @@ namespace Vostok.Logging.Formatting
         {
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            if (@event.MessageTemplate == null)
+                return;
 
             var tokens = TemplateCache.Obtain(@event.MessageTemplate, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
 
