@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
+using JetBrains.Annotations;
 
 namespace Vostok.Logging.Formatting.Helpers
 {
     internal class RecyclingBoundedCache<TKey, TValue>
     {
         private readonly int capacity;
+        private readonly IEqualityComparer<TKey> comparer;
         private RecyclingBoundedCacheState state;
 
-        public RecyclingBoundedCache(int capacity)
+        public RecyclingBoundedCache(int capacity, [CanBeNull] IEqualityComparer<TKey> comparer = null)
         {
             this.capacity = capacity;
+            this.comparer = comparer ?? EqualityComparer<TKey>.Default;
 
-            state = new RecyclingBoundedCacheState();
+            state = new RecyclingBoundedCacheState(this.comparer);
         }
 
         public TValue Obtain(TKey key, Func<TKey, TValue> factory)
@@ -26,7 +30,7 @@ namespace Vostok.Logging.Formatting.Helpers
             {
                 var newCount = Interlocked.Increment(ref currentState.Count);
                 if (newCount == capacity)
-                    Interlocked.Exchange(ref state, new RecyclingBoundedCacheState());
+                    Interlocked.Exchange(ref state, new RecyclingBoundedCacheState(comparer));
             }
 
             return value;
@@ -34,7 +38,12 @@ namespace Vostok.Logging.Formatting.Helpers
 
         private class RecyclingBoundedCacheState
         {
-            public readonly ConcurrentDictionary<TKey, TValue> Items = new ConcurrentDictionary<TKey, TValue>();
+            public RecyclingBoundedCacheState(IEqualityComparer<TKey> comparer)
+            {
+                Items = new ConcurrentDictionary<TKey, TValue>(comparer);
+            }
+
+            public readonly ConcurrentDictionary<TKey, TValue> Items;
 
             public int Count;
         }

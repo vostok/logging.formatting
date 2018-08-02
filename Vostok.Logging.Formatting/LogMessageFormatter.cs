@@ -22,7 +22,7 @@ namespace Vostok.Logging.Formatting
         private static readonly INamedTokenFactory TokenFactory = new PropertyTokensFactory();
 
         private static readonly RecyclingBoundedCache<string, ITemplateToken[]> TemplateCache =
-            new RecyclingBoundedCache<string, ITemplateToken[]>(TemplateCacheCapacity);
+            new RecyclingBoundedCache<string, ITemplateToken[]>(TemplateCacheCapacity, StringComparer.Ordinal);
 
         /// <inheritdoc cref="Format(LogEvent,TextWriter,IFormatProvider)"/>
         public static string Format(
