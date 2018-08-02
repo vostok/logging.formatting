@@ -18,7 +18,7 @@ namespace Vostok.Logging.Formatting
     ///     <item><c>{Level}</c> - inserts <see cref="LogEvent.Level"/> in upper case (such as <c>INFO</c>).<para/></item>
     ///     <item><c>{Message}</c> - inserts log message rendered from <see cref="LogEvent.MessageTemplate"/> and <see cref="LogEvent.Properties"/> using <see cref="LogMessageFormatter"/>.<para/></item>
     ///     <item><c>{NewLine}</c> - inserts a platform-dependent newline.<para/></item>
-    ///     <item><c>{Exception}</c> - inserts <see cref="LogEvent.Exception"/> with message, stack trace and inner exception.<para/></item>
+    ///     <item><c>{Exception}</c> - inserts <see cref="LogEvent.Exception"/> with message, stack trace, inner exception and a trailing newline.<para/></item>
     ///     <item><c>{Properties}</c> - inserts all of event's <see cref="LogEvent.Properties"/>.<para/></item>
     /// </list>
     /// <para>Ordinary named properties are just referenced by their names, such as <c>{MyProp}</c>.</para>

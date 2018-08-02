@@ -18,6 +18,9 @@ namespace Vostok.Logging.Formatting.Tokens
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
             RenderException(@event.Exception, writer, 0);
+
+            if (@event.Exception != null)
+                writer.WriteLine();
         }
 
         private static void RenderException(Exception error, TextWriter writer, int depth)

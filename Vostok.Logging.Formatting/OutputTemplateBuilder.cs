@@ -65,7 +65,7 @@ namespace Vostok.Logging.Formatting
             => AddToken(new LevelToken());
 
         /// <summary>
-        /// Adds a token which emits <see cref="LogEvent.Exception"/> with message, stack trace and inner exception
+        /// Adds a token which emits <see cref="LogEvent.Exception"/> with message, stack trace, inner exception and a trailing newline.
         /// </summary>
         public OutputTemplateBuilder AddException()
             => AddToken(new ExceptionToken());
