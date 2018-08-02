@@ -35,11 +35,10 @@ namespace Vostok.Logging.Formatting
             = new OutputTemplate(new ITemplateToken[] {});
 
         /// <summary>
-        /// A default template with following representation: <c>{Timestamp} {Uptime} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
+        /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
         public static readonly OutputTemplate Default 
-            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Uptime}}} " +
-                    $"{{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
+            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
                     $"{{{PropertyNames.Message}}}{{{PropertyNames.NewLine}}}{{{PropertyNames.Exception}}}");
 
         /// <summary>
