@@ -44,6 +44,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\vostok.devtools\jetbrains-annotations\JetBrainsAnnotations.cs" Link="Annotations\JetBrainsAnnotations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Vostok.Logging.Abstractions">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vostok.logging.abstractions\Vostok.Logging.Abstractions\bin\Release\netstandard2.0\Vostok.Logging.Abstractions.dll</HintPath>
