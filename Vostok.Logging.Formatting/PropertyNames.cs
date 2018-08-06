@@ -24,6 +24,6 @@ namespace Vostok.Logging.Formatting
 
         public const string Uptime = "Uptime";
 
-        public const string Prefix = "Prefix";
+        public const string ContextualPrefix = "ContextualPrefix";
     }
 }

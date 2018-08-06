@@ -37,7 +37,7 @@ namespace Vostok.Logging.Formatting
         /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
         public static readonly OutputTemplate Default 
-            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Level}}} {{{PropertyNames.Prefix}}}" +
+            = Parse($"{{{PropertyNames.Timestamp}}} {{{PropertyNames.Level}}} {{{PropertyNames.ContextualPrefix}}}" +
                     $"{{{PropertyNames.Message}}}{{{PropertyNames.NewLine}}}{{{PropertyNames.Exception}}}");
 
         /// <summary>
