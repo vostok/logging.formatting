@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
+using Vostok.Commons.Collections;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokenizer;
