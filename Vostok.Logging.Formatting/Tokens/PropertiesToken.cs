@@ -11,7 +11,7 @@ namespace Vostok.Logging.Formatting.Tokens
     internal class PropertiesToken : NamedToken
     {
         public PropertiesToken([CanBeNull] string format = null)
-            : base(PropertyNames.Properties, format)
+            : base(WellKnownTokens.Properties, format)
         {
         }
 

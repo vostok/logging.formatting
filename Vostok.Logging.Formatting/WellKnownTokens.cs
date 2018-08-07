@@ -1,14 +1,12 @@
 ﻿using JetBrains.Annotations;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
 namespace Vostok.Logging.Formatting
 {
     /// <summary>
-    /// Defines names of special well-known properties in for <see cref="OutputTemplate"/>.
+    /// Defines names of special well-known tokens that can be used in <see cref="OutputTemplate"/>s.
     /// </summary>
     [PublicAPI]
-    public static class PropertyNames
+    public static class WellKnownTokens
     {
         public const string Exception = "Exception";
 
@@ -23,7 +21,5 @@ namespace Vostok.Logging.Formatting
         public const string Timestamp = "Timestamp";
 
         public const string Uptime = "Uptime";
-
-        public const string ContextualPrefix = "ContextualPrefix";
     }
 }

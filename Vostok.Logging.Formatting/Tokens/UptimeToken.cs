@@ -17,7 +17,7 @@ namespace Vostok.Logging.Formatting.Tokens
         }
 
         public UptimeToken([CanBeNull] string format = null)
-            : base(PropertyNames.Uptime, format)
+            : base(WellKnownTokens.Uptime, format)
         {
         }
 

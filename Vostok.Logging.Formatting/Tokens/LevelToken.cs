@@ -23,7 +23,7 @@ namespace Vostok.Logging.Formatting.Tokens
         }
 
         public LevelToken([CanBeNull] string format = null)
-            : base(PropertyNames.Level, format)
+            : base(WellKnownTokens.Level, format)
         {
         }
 

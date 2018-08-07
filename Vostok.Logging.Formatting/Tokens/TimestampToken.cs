@@ -17,7 +17,7 @@ namespace Vostok.Logging.Formatting.Tokens
         private readonly bool hasCustomFormat;
 
         public TimestampToken([CanBeNull] string format = null)
-            : base(PropertyNames.Timestamp, format)
+            : base(WellKnownTokens.Timestamp, format)
         {
             hasCustomFormat = Format != null && Format != DefaultFormat;
         }
