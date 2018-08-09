@@ -69,9 +69,7 @@ namespace Vostok.Logging.Formatting
             var tokens = TemplateCache.Obtain(@event.MessageTemplate, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
 
             foreach (var token in tokens)
-            {
                 token.Render(@event, writer, formatProvider);
-            }
         }
     }
 }

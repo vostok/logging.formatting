@@ -8,16 +8,16 @@ namespace Vostok.Logging.Formatting.Helpers
         private const int MaximumSize = 768;
 
         [ThreadStatic]
-        private static StringBuilder CachedInstance;
+        private static StringBuilder cachedInstance;
 
         public static StringBuilder Acquire(int capacity)
         {
             if (capacity <= MaximumSize)
             {
-                var builder = CachedInstance;
+                var builder = cachedInstance;
                 if (capacity <= builder?.Capacity)
                 {
-                    CachedInstance = null;
+                    cachedInstance = null;
                     builder.Clear();
                     return builder;
                 }
@@ -29,9 +29,7 @@ namespace Vostok.Logging.Formatting.Helpers
         public static void Release(StringBuilder builder)
         {
             if (builder.Capacity <= MaximumSize)
-            {
-                CachedInstance = builder;
-            }
+                cachedInstance = builder;
         }
     }
 }

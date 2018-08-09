@@ -36,14 +36,15 @@ namespace Vostok.Logging.Formatting
         /// <summary>
         /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
-        public static readonly OutputTemplate Default 
-            = Parse($"{{{WellKnownTokens.Timestamp}}} " +
-                    $"{{{WellKnownTokens.Level}}} " +
-                    $"{{{WellKnownProperties.ContextualPrefix}}}" +
-                    $"{{{WellKnownProperties.SourceContext}}}" +
-                    $"{{{WellKnownTokens.Message}}}" +
-                    $"{{{WellKnownTokens.NewLine}}}" +
-                    $"{{{WellKnownTokens.Exception}}}");
+        public static readonly OutputTemplate Default =
+            Parse(
+                $"{{{WellKnownTokens.Timestamp}}} " +
+                $"{{{WellKnownTokens.Level}}} " +
+                $"{{{WellKnownProperties.ContextualPrefix}}}" +
+                $"{{{WellKnownProperties.SourceContext}}}" +
+                $"{{{WellKnownTokens.Message}}}" +
+                $"{{{WellKnownTokens.NewLine}}}" +
+                $"{{{WellKnownTokens.Exception}}}");
 
         /// <summary>
         /// Creates a builder which can be used to construct <see cref="OutputTemplate"/> without going through string parsing.
@@ -55,8 +56,8 @@ namespace Vostok.Logging.Formatting
         /// Parses given template string and returns an <see cref="OutputTemplate"/> corresponding to it.
         /// </summary>
         [NotNull]
-        public static OutputTemplate Parse(string input)
-            => new OutputTemplate(TemplateTokenizer.Tokenize(input, new AllNamedTokensFactory()).ToArray());
+        public static OutputTemplate Parse(string input) =>
+            new OutputTemplate(TemplateTokenizer.Tokenize(input, new AllNamedTokensFactory()).ToArray());
 
         private readonly string template;
 

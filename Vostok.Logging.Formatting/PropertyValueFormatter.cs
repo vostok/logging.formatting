@@ -63,87 +63,53 @@ namespace Vostok.Logging.Formatting
             Type valueType;
 
             if (value is string str)
-            {
                 writer.Write(str);
-            }
             else if (value is IFormattable formattable)
-            {
                 writer.Write(formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture));
-            }
             else if (HasCustomToString(valueType = value.GetType()))
-            {
                 writer.Write(value.ToString());
-            }
             else if (IsSimpleDictionary(valueType))
-            {
                 FormatDictionaryAsJson(writer, value, 1);
-            }
             else if (value is IEnumerable enumerable)
-            {
                 FormatSequenceAsJson(writer, enumerable, 1);
-            }
             else if (HasPublicProperties(valueType))
-            {
                 FormatObjectPropertiesAsJson(writer, value, 1);
-            }
             else writer.Write(value.ToString());
         }
 
-        private static bool HasCustomToString(Type type)
-        {
-            return ToStringDetector.HasCustomToString(type);
-        }
+        private static bool HasCustomToString(Type type) =>
+            ToStringDetector.HasCustomToString(type);
 
-        private static bool IsSimpleDictionary(Type type)
-        {
-            return DictionaryInspector.IsSimpleDictionary(type);
-        }
+        private static bool IsSimpleDictionary(Type type) =>
+            DictionaryInspector.IsSimpleDictionary(type);
 
-        private static bool HasPublicProperties(Type type)
-        {
-            return ObjectPropertiesExtractor.HasProperties(type);
-        }
+        private static bool HasPublicProperties(Type type) =>
+            ObjectPropertiesExtractor.HasProperties(type);
 
         private static void FormatAsJson(TextWriter writer, object value, int depth)
         {
             Type valueType;
 
             if (value == null)
-            {
                 writer.Write("null");
-            }
             else if (depth > MaximumRecursionDepth)
-            {
                 writer.Write("\"<too deep>\"");
-            }
             else if (HasCustomToString(valueType = value.GetType()))
-            {
                 FormatValueAsJson(writer, value);
-            }
             else if (IsSimpleDictionary(valueType))
-            {
                 FormatDictionaryAsJson(writer, value, depth);
-            }
             else if (value is IEnumerable enumerable)
-            {
                 FormatSequenceAsJson(writer, enumerable, depth);
-            }
             else if (HasPublicProperties(valueType))
-            {
                 FormatObjectPropertiesAsJson(writer, value, depth);
-            }
             else FormatValueAsJson(writer, value);
         }
 
-        private static void FormatDictionaryAsJson(TextWriter writer, object dictionary, int depth)
-        {
+        private static void FormatDictionaryAsJson(TextWriter writer, object dictionary, int depth) =>
             FormatPropertiesAsJson(writer, DictionaryInspector.EnumerateSimpleDictionary(dictionary), depth);
-        }
 
-        private static void FormatObjectPropertiesAsJson(TextWriter writer, object value, int depth)
-        {
+        private static void FormatObjectPropertiesAsJson(TextWriter writer, object value, int depth) =>
             FormatPropertiesAsJson(writer, ObjectPropertiesExtractor.ExtractProperties(value), depth);
-        }
 
         private static void FormatSequenceAsJson(TextWriter writer, IEnumerable sequence, int depth)
         {

@@ -25,23 +25,19 @@ namespace Vostok.Logging.Formatting.Tokenizer
             }
         }
 
-        public ITemplateToken Create(string name, string format)
-        {
-            return SpecialTokens.TryGetValue(name, out var tokenFactory)
+        public ITemplateToken Create(string name, string format) =>
+            SpecialTokens.TryGetValue(name, out var tokenFactory)
                 ? tokenFactory(format)
                 : new PropertyToken(name, format);
-        }
 
-        private static IEnumerable<Type> GetSpecialTokenTypes()
-        {
-            return typeof(NamedToken)
+        private static IEnumerable<Type> GetSpecialTokenTypes() =>
+            typeof(NamedToken)
                 .Assembly
                 .GetTypes()
                 .Where(type => typeof(NamedToken).IsAssignableFrom(type))
                 .Where(type => type != typeof(NamedToken))
                 .Where(type => type != typeof(PropertyToken))
                 .Where(type => !type.IsAbstract);
-        }
 
         private static Func<string, ITemplateToken> CreateFactoryDelegate(Type tokenType)
         {

@@ -63,9 +63,7 @@ namespace Vostok.Logging.Formatting.Tokens
         private static void WriteNumberWithTwoDigitPadding(int number, TextWriter writer)
         {
             if (number < 10)
-            {
                 writer.Write('0');
-            }
 
             writer.Write(number.ToString(InvariantCulture));
         }
@@ -74,13 +72,9 @@ namespace Vostok.Logging.Formatting.Tokens
         private static void WriteNumberWithThreeDigitPadding(int number, TextWriter writer)
         {
             if (number < 10)
-            {
                 writer.Write("00");
-            }
             else if (number < 100)
-            {
                 writer.Write('0');
-            }
 
             writer.Write(number.ToString(InvariantCulture));
         }

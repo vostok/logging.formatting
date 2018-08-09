@@ -13,18 +13,16 @@ namespace Vostok.Logging.Formatting.Helpers
     {
         private const int CacheCapacity = 1000;
 
-        private static readonly RecyclingBoundedCache<Type, (string name, Func<object, object> getter)[]> Cache
-            = new RecyclingBoundedCache<Type, (string name, Func<object, object> getter)[]>(CacheCapacity);
+        private static readonly RecyclingBoundedCache<Type, (string name, Func<object, object> getter)[]> Cache =
+            new RecyclingBoundedCache<Type, (string name, Func<object, object> getter)[]>(CacheCapacity);
 
-        public static bool HasProperties(Type type)
-            => Cache.Obtain(type, obj => LocateProperties(obj)).Length > 0;
+        public static bool HasProperties(Type type) =>
+            Cache.Obtain(type, obj => LocateProperties(obj)).Length > 0;
 
         public static IEnumerable<(string, object)> ExtractProperties(object @object)
         {
             foreach (var (name, getter) in Cache.Obtain(@object.GetType(), obj => LocateProperties(obj)))
-            {
                 yield return (name, ObtainPropertyValue(@object, getter));
-            }
         }
 
         private static (string, Func<object, object>)[] LocateProperties(Type type)

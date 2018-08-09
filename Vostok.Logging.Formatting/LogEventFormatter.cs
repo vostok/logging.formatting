@@ -55,9 +55,7 @@ namespace Vostok.Logging.Formatting
                 throw new ArgumentNullException(nameof(template));
 
             foreach (var token in template.Tokens)
-            {
                 token.Render(@event, writer, formatProvider);
-            }
         }
     }
 }

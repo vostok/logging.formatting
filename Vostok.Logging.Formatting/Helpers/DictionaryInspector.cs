@@ -13,21 +13,19 @@ namespace Vostok.Logging.Formatting.Helpers
     {
         private const int CacheCapacity = 1000;
 
-        private static readonly RecyclingBoundedCache<Type, DictionaryInfo> Cache
-            = new RecyclingBoundedCache<Type, DictionaryInfo>(CacheCapacity);
+        private static readonly RecyclingBoundedCache<Type, DictionaryInfo> Cache =
+            new RecyclingBoundedCache<Type, DictionaryInfo>(CacheCapacity);
 
-        public static bool IsSimpleDictionary(Type type)
-            => Cache.Obtain(type, t => TryDetectSimpleDictionary(t)).IsDictionary;
+        public static bool IsSimpleDictionary(Type type) =>
+            Cache.Obtain(type, t => TryDetectSimpleDictionary(t)).IsDictionary;
 
         public static IEnumerable<(string, object)> EnumerateSimpleDictionary(object dictionary)
         {
             var info = Cache.Obtain(dictionary.GetType(), t => TryDetectSimpleDictionary(t));
 
             foreach (var pair in (IEnumerable)dictionary)
-            {
                 if (pair?.GetType() == info.PairType)
                     yield return (info.KeyGetter(pair).ToString(), info.ValueGetter(pair));
-            }
         }
 
         private static DictionaryInfo TryDetectSimpleDictionary(Type type)
@@ -66,12 +64,9 @@ namespace Vostok.Logging.Formatting.Helpers
             }
         }
 
-        private static bool IsSimpleKeyType(Type type)
-        {
-            return type.IsPrimitive ||
-                   type.IsEnum ||
-                   type == typeof(string);
-        }
+        private static bool IsSimpleKeyType(Type type) => type.IsPrimitive ||
+                                                          type.IsEnum ||
+                                                          type == typeof(string);
 
         private struct DictionaryInfo
         {

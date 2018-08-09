@@ -4,9 +4,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
 {
     internal class PropertyTokensFactory : INamedTokenFactory
     {
-        public ITemplateToken Create(string name, string format)
-        {
-            return new PropertyToken(name, format);
-        }
+        public ITemplateToken Create(string name, string format) =>
+            new PropertyToken(name, format);
     }
 }

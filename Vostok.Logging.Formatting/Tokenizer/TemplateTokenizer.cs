@@ -117,9 +117,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
             var tokenLength = rawLength - 2;
 
             if (TryParseNamedToken(template, tokenOffset, tokenLength, out var name, out var format))
-            {
                 return factory.Create(name, format);
-            }
 
             return CreateTextToken(template, rawOffset, rawLength);
         }
@@ -202,21 +200,15 @@ namespace Vostok.Logging.Formatting.Tokenizer
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsValidInNamedToken(char c)
-        {
-            return IsValidInName(c) || IsValidInFormat(c) || c == Colon;
-        }
+        private static bool IsValidInNamedToken(char c) =>
+            IsValidInName(c) || IsValidInFormat(c) || c == Colon;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsValidInName(char c)
-        {
-            return char.IsLetterOrDigit(c) || c == Underscore;
-        }
+        private static bool IsValidInName(char c) =>
+            char.IsLetterOrDigit(c) || c == Underscore;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsValidInFormat(char c)
-        {
-            return c != ClosingBrace && (char.IsLetterOrDigit(c) || char.IsPunctuation(c) || c == Whitespace);
-        }
+        private static bool IsValidInFormat(char c) =>
+            c != ClosingBrace && (char.IsLetterOrDigit(c) || char.IsPunctuation(c) || c == Whitespace);
     }
 }

@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\vostok.commons.collections\Vostok.Commons.Collections\RecyclingBoundedCache.cs" Link="Commons\RecyclingBoundedCache.cs" />
+    <Compile Include="..\..\vostok.commons.collections\Vostok.Commons.Collections\RecyclingBoundedCache.cs" Link="Commons\Collections\RecyclingBoundedCache.cs" />
   </ItemGroup>
 
   <ItemGroup>

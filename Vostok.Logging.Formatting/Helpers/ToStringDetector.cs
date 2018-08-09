@@ -9,8 +9,8 @@ namespace Vostok.Logging.Formatting.Helpers
     {
         private const int CacheCapacity = 1000;
 
-        private static readonly RecyclingBoundedCache<Type, bool> Cache
-            = new RecyclingBoundedCache<Type, bool>(CacheCapacity);
+        private static readonly RecyclingBoundedCache<Type, bool> Cache =
+            new RecyclingBoundedCache<Type, bool>(CacheCapacity);
 
         public static bool HasCustomToString(Type type) =>
             Cache.Obtain(type, t => HasCustomToStringInternal(t));
