@@ -60,6 +60,19 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
             Render(formattedToken).Should().Be(expected);
         }
 
+        [TestCase("", "w", "")]
+        [TestCase("", "W", "")]
+        [TestCase("", "wW", "")]
+        [TestCase(null, "w", "")]
+        [TestCase(null, "W", "")]
+        [TestCase(null, "wW", "")]
+        public void Should_render_correctly_using_format_for_spaces_with_empty_property(string value, string format, string expected)
+        {
+            @event = @event.WithProperty("prop", value);
+            var formattedToken = new PropertyToken("prop", format);
+            Render(formattedToken).Should().Be(expected);
+        }
+
         private string Render(PropertyToken anotherToken = null)
         {
             var stringBuilder = new StringBuilder();
