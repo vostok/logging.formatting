@@ -17,6 +17,8 @@ namespace Vostok.Logging.Formatting
     {
         private const int StringBuilderCapacity = 64;
         private const int MaximumRecursionDepth = 3;
+        private const string LeadingSpaceFormat = "W";
+        private const string TrailingSpaceFormat = "w";
 
         /// <inheritdoc cref="Format(TextWriter,object,string,IFormatProvider)"/>
         public static string Format(
@@ -60,21 +62,65 @@ namespace Vostok.Logging.Formatting
             if (value == null)
                 return;
 
+            var hasLeadingSpace = format != null && format.Contains(LeadingSpaceFormat);
+            var hasTrailingSpace = format != null && format.Contains(TrailingSpaceFormat);
+            
+            void WriteLeadingSpace()
+            {
+                if (hasLeadingSpace)
+                    writer.Write(" ");
+            }
+
             Type valueType;
 
-            if (value is string str)
+            if (value is string str && !string.IsNullOrEmpty(str))
+            {
+                WriteLeadingSpace();
                 writer.Write(str);
+            }
             else if (value is IFormattable formattable)
-                writer.Write(formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture));
+            {
+                if (hasLeadingSpace || hasTrailingSpace)
+                    format = format?.Replace(LeadingSpaceFormat, string.Empty).Replace(TrailingSpaceFormat, string.Empty);
+                var formattableStr = formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture);
+                if (string.IsNullOrEmpty(formattableStr))
+                    return;
+                WriteLeadingSpace();
+                writer.Write(formattableStr);
+            }
             else if (HasCustomToString(valueType = value.GetType()))
-                writer.Write(value.ToString());
+            {
+                var toStringStr = value.ToString();
+                if (string.IsNullOrEmpty(toStringStr))
+                    return;
+                WriteLeadingSpace();
+                writer.Write(toStringStr);
+            }
             else if (IsSimpleDictionary(valueType))
+            {
+                WriteLeadingSpace();
                 FormatDictionaryAsJson(writer, value, 1);
+            }
             else if (value is IEnumerable enumerable)
+            {
+                WriteLeadingSpace();
                 FormatSequenceAsJson(writer, enumerable, 1);
+            }
             else if (HasPublicProperties(valueType))
+            {
+                WriteLeadingSpace();
                 FormatObjectPropertiesAsJson(writer, value, 1);
-            else writer.Write(value.ToString());
+            }
+            else
+            {
+                var resStr = value.ToString();
+                if (string.IsNullOrEmpty(resStr))
+                    return;
+                writer.Write(resStr);
+            }
+
+            if (hasTrailingSpace)
+                writer.Write(" ");
         }
 
         private static bool HasCustomToString(Type type) =>

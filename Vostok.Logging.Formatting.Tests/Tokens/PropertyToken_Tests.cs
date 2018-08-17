@@ -5,6 +5,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokens;
+using ConLog = Vostok.Logging.Console;
 
 namespace Vostok.Logging.Formatting.Tests.Tokens
 {
@@ -45,12 +46,26 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
             Render().Should().Be("00001");
         }
 
-        private string Render()
+        [TestCase("w", "1 ")]
+        [TestCase("W", " 1")]
+        [TestCase("wW", " 1 ")]
+        [TestCase("D2", "01")]
+        [TestCase("wWD2", " 01 ")]
+        [TestCase("D2w", "01 ")]
+        [TestCase("DW2", " 01")]
+        public void Should_render_correctly_using_format_for_spaces(string format, string expected)
+        {
+            @event = @event.WithProperty("prop", 1);
+            var formattedToken = new PropertyToken("prop", format);
+            Render(formattedToken).Should().Be(expected);
+        }
+
+        private string Render(PropertyToken anotherToken = null)
         {
             var stringBuilder = new StringBuilder();
             var stringWriter = new StringWriter(stringBuilder);
 
-            token.Render(@event, stringWriter, null);
+            (anotherToken ?? token).Render(@event, stringWriter, null);
 
             return stringBuilder.ToString();
         }

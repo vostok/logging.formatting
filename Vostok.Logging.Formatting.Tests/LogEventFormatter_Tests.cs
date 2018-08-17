@@ -20,7 +20,7 @@ namespace Vostok.Logging.Formatting.Tests
 
             result.Should().Be("WARN  Hello, Vostok!");
 
-            Console.Out.WriteLine(result);
+            System.Console.Out.WriteLine(result);
         }
     }
 }

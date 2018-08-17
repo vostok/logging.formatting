@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Logging.Formatting", "Vostok.Logging.Formatting\Vostok.Logging.Formatting.csproj", "{F8BF3D91-C609-4BF4-B565-E34B8D5F74BE}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		NoTests|Any CPU = NoTests|Any CPU
