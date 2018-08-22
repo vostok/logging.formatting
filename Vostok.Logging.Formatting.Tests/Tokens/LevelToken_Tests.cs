@@ -16,6 +16,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         [TestCase(LogLevel.Warn,  "WARN ")]
         [TestCase(LogLevel.Error, "ERROR")]
         [TestCase(LogLevel.Fatal, "FATAL")]
+        [TestCase((LogLevel)42, "")]
         public void Should_correctly_render_given_log_level_with_padding_and_default_format(LogLevel level, string expected)
         {
             var @event = new LogEvent(level, DateTimeOffset.Now, null);
@@ -43,6 +44,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         [TestCase(LogLevel.Debug, "t5", "Debug")]
         [TestCase(LogLevel.Fatal, "u5", "FATAL")]
         [TestCase(LogLevel.Warn, "t5", "Warn ")]
+        [TestCase((LogLevel)123, "u2", "")]
         public void Should_correctly_render_with_given_format(LogLevel level, string format, string expected)
         {
             var @event = new LogEvent(level, DateTimeOffset.Now, null);

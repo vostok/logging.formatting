@@ -38,23 +38,28 @@ namespace Vostok.Logging.Formatting.Tokens
             new[] {"F", "FA", "FTL", "FATL", "FATAL"}
         };
 
+        private readonly int width;
+        private readonly char caseType;
+
         public LevelToken([CanBeNull] string format = null)
             : base(WellKnownTokens.Level, format)
         {
+            if (format == null || format.Length != 2)
+                format = DefaultFormat;
+
+            width = format[1] - '0';
+            if (width < 1 || width > 5)
+                width = DefaultWidth;
+
+            caseType = format[0];
         }
 
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            var format = Format;
-            if (format == null || format.Length != 2)
-                format = DefaultFormat;
-
-            var width = format[1] - '0';
-            if (width < 1 || width > 5)
-                width = DefaultWidth;
-
             var index = (int)@event.Level;
-            switch (format[0])
+            if (index > 4) return;
+
+            switch (caseType)
             {
                 case 'w':
                     writer.Write(LowercaseLevelMap[index][width - 1]);
