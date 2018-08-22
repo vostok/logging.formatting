@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using Vostok.Logging.Formatting.Helpers;
 
@@ -19,6 +20,13 @@ namespace Vostok.Logging.Formatting
         private const int MaximumRecursionDepth = 3;
         private const string LeadingSpaceFormat = "W";
         private const string TrailingSpaceFormat = "w";
+        private static string[] spaceFormats =
+        {
+            TrailingSpaceFormat,
+            LeadingSpaceFormat,
+            TrailingSpaceFormat + LeadingSpaceFormat,
+            LeadingSpaceFormat + TrailingSpaceFormat
+        };
 
         /// <inheritdoc cref="Format(TextWriter,object,string,IFormatProvider)"/>
         public static string Format(
@@ -62,9 +70,14 @@ namespace Vostok.Logging.Formatting
             if (value == null)
                 return;
 
-            var hasLeadingSpace = format != null && format.Contains(LeadingSpaceFormat);
-            var hasTrailingSpace = format != null && format.Contains(TrailingSpaceFormat);
-            
+            var hasLeadingSpace = false;
+            var hasTrailingSpace = false;
+            if (format != null && spaceFormats.Contains(format))
+            {
+                hasLeadingSpace = format.Contains(LeadingSpaceFormat);
+                hasTrailingSpace = format.Contains(TrailingSpaceFormat);
+            }
+
             void WriteLeadingSpace()
             {
                 if (hasLeadingSpace)
