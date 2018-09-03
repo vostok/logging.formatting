@@ -68,6 +68,13 @@ namespace Vostok.Logging.Formatting
             AddToken(new LevelToken());
 
         /// <summary>
+        /// <para>Adds a token which emits <see cref="LogEvent.Level"/> with given <paramref name="format"/>.</para>
+        /// <para>Use a format such as <c>{Level:u3}</c> or <c>{Level:w3}</c> for three-character upper- or lowercase level names, respectively.</para>
+        /// </summary>
+        public OutputTemplateBuilder AddLevel(string format) =>
+            AddToken(new LevelToken(format));
+
+        /// <summary>
         /// Adds a token which emits <see cref="LogEvent.Exception"/> with message, stack trace, inner exception and a trailing newline.
         /// </summary>
         public OutputTemplateBuilder AddException() =>

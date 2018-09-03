@@ -15,7 +15,7 @@ namespace Vostok.Logging.Formatting
     /// <list type="bullet">
     ///     <item><description><c>{Timestamp:format}</c> — inserts <see cref="P:Vostok.Logging.Abstractions.LogEvent.Timestamp" /> formatted with given optional <c>format</c>. Default format is <c>yyyy-MM-dd HH:mm:ss,fff</c>.<para /></description></item>
     ///     <item><description><c>{Uptime:format}</c> — inserts a current process uptime measured in milliseconds and formatted with given optional <c>format</c>.<para /></description></item>
-    ///     <item><description><c>{Level}</c> — inserts <see cref="P:Vostok.Logging.Abstractions.LogEvent.Level" /> in upper case (such as <c>INFO</c>).<para /></description></item>
+    ///     <item><description><c>{Level}</c> — inserts <see cref="P:Vostok.Logging.Abstractions.LogEvent.Level" /> in upper case (such as <c>INFO</c>). For more compact level names, use a format such as <c>{Level:u3}</c> or <c>{Level:w3}</c> for three-character upper- or lowercase level names, respectively.<para /></description></item>
     ///     <item><description><c>{Message}</c> — inserts log message rendered from <see cref="P:Vostok.Logging.Abstractions.LogEvent.MessageTemplate" /> and <see cref="P:Vostok.Logging.Abstractions.LogEvent.Properties" /> using <see cref="T:Vostok.Logging.Formatting.LogMessageFormatter" />.<para /></description></item>
     ///     <item><description><c>{NewLine}</c> — inserts a platform-dependent newline.<para /></description></item>
     ///     <item><description><c>{Exception}</c> — inserts <see cref="P:Vostok.Logging.Abstractions.LogEvent.Exception" /> with message, stack trace, inner exception and a trailing newline.<para /></description></item>
