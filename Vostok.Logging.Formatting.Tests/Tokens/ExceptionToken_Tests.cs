@@ -36,7 +36,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
             {
                 var result = Format(error);
 
-                System.Console.Out.WriteLine(result);
+                Console.Out.WriteLine(result);
 
                 result.Should().StartWith("System.Exception: error1");
             }
@@ -53,7 +53,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
             {
                 var result = Format(error);
 
-                System.Console.Out.WriteLine(result);
+                Console.Out.WriteLine(result);
 
                 result.Should().StartWith("System.Exception: error1 ---> System.Exception: error2 ---> System.FormatException: error3");
             }

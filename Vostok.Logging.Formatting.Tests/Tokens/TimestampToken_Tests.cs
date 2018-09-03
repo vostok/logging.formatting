@@ -27,7 +27,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         {
             new TimestampToken().Render(@event, writer, null);
 
-            System.Console.Out.WriteLine(writer.ToString());
+            Console.Out.WriteLine(writer.ToString());
 
             writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat));
         }
@@ -39,7 +39,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             new TimestampToken(format).Render(@event, writer, null);
 
-            System.Console.Out.WriteLine(writer.ToString());
+            Console.Out.WriteLine(writer.ToString());
 
             writer.ToString().Should().Be(@event.Timestamp.ToString(format));
         }
@@ -51,7 +51,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             new TimestampToken().Render(@event, writer, formatProvider);
 
-            System.Console.Out.WriteLine(writer.ToString());
+            Console.Out.WriteLine(writer.ToString());
 
             writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat, formatProvider));
         }
@@ -65,7 +65,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
             new TimestampToken(format).Render(@event, writer, formatProvider);
 
-            System.Console.Out.WriteLine(writer.ToString());
+            Console.Out.WriteLine(writer.ToString());
 
             writer.ToString().Should().Be(@event.Timestamp.ToString(format, formatProvider));
         }
