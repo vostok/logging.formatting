@@ -60,6 +60,20 @@ namespace Vostok.Logging.Formatting
             if (value == null)
                 return;
 
+            if (SurroundingSpacesFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace))
+                format = null;
+
+            if (insertLeadingSpace)
+                writer.WriteSpace();
+
+            FormatInternal(writer, value, format, formatProvider);
+
+            if (insertTrailingSpace)
+                writer.WriteSpace();
+        }
+
+        private static void FormatInternal(TextWriter writer, object value, string format, IFormatProvider formatProvider)
+        {
             Type valueType;
 
             if (value is string str)
@@ -74,8 +88,11 @@ namespace Vostok.Logging.Formatting
                 FormatSequenceAsJson(writer, enumerable, 1);
             else if (HasPublicProperties(valueType))
                 FormatObjectPropertiesAsJson(writer, value, 1);
-            else writer.Write(value.ToString());
+            else
+                writer.Write(value.ToString());
         }
+
+        private static void WriteSpace(this TextWriter writer) => writer.Write(" ");
 
         private static bool HasCustomToString(Type type) =>
             ToStringDetector.HasCustomToString(type);

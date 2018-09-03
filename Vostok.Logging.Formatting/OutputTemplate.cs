@@ -41,7 +41,7 @@ namespace Vostok.Logging.Formatting
                 $"{{{WellKnownTokens.Timestamp}}} " +
                 $"{{{WellKnownTokens.Level}}} " +
                 $"{{{WellKnownProperties.ContextualPrefix}}}" +
-                $"{{{WellKnownProperties.SourceContext}}}" +
+                $"{{{WellKnownProperties.SourceContext}:w}}" +
                 $"{{{WellKnownTokens.Message}}}" +
                 $"{{{WellKnownTokens.NewLine}}}" +
                 $"{{{WellKnownTokens.Exception}}}");

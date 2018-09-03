@@ -34,6 +34,46 @@ namespace Vostok.Logging.Formatting.Tests
             Format(123, "D5").Should().Be("00123");
         }
 
+        [TestCase("w", "123 ")]
+        [TestCase("W", " 123")]
+        [TestCase("wW", " 123 ")]
+        [TestCase("Ww", " 123 ")]
+        public void Should_support_leading_and_trailing_space_formats_for_formattable_types(string format, string expected)
+        {
+            Format(123, format).Should().Be(expected);
+        }
+
+        [TestCase("wWD2", "wWD2")]
+        [TestCase("D2w", "D2w")]
+        [TestCase("DW2", "DW2")]
+        public void Should_leave_invalid_formats_as_is(string format, string expected)
+        {
+            Format(123, format).Should().Be(expected);
+        }
+
+        [TestCase("w", "System.Object ")]
+        [TestCase("W", " System.Object")]
+        [TestCase("wW", " System.Object ")]
+        [TestCase("Ww", " System.Object ")]
+        public void Should_support_leading_and_trailing_space_formats_for_non_formattable_types(string format, string expected)
+        {
+            Format(new object(), format).Should().Be(expected);
+        }
+
+        [TestCase(null, "w", "")]
+        [TestCase(null, "W", "")]
+        [TestCase(null, "wW", "")]
+        public void Should_not_insert_leading_and_trailing_spaces_around_null_values(string value, string format, string expected)
+        {
+            Format(value, format).Should().Be(expected);
+        }
+
+        [Test]
+        public void Should_allow_letter_w_in_custom_format()
+        {
+            Format(42, "00 'words'").Should().Be("42 words");
+        }
+
         [TestCase(true, "True")]
         [TestCase(false, "False")]
         [TestCase((byte) 123, "123")]
@@ -347,7 +387,7 @@ namespace Vostok.Logging.Formatting.Tests
         }
 
         [Test]
-        public void Should_format_dictionaries_with_nested_dictionarues_as_json()
+        public void Should_format_dictionaries_with_nested_dictionaries_as_json()
         {
             var value = new Dictionary<int, object>
             {
