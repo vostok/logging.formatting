@@ -22,10 +22,10 @@ namespace Vostok.Logging.Formatting.Tests
             var template = OutputTemplate.Parse("lalala{Level}{Message}lalala");
 
             template.Tokens.Should().HaveCount(4);
-            template.Tokens[0].Should().BeOfType<TextToken>().Which.Length.Should().Be(6);
+            template.Tokens[0].Should().BeOfType<TextToken>().Which.Text.Should().Be("lalala");
             template.Tokens[1].Should().BeOfType<LevelToken>();
             template.Tokens[2].Should().BeOfType<MessageToken>();
-            template.Tokens[3].Should().BeOfType<TextToken>().Which.Length.Should().Be(6);
+            template.Tokens[3].Should().BeOfType<TextToken>().Which.Text.Should().Be("lalala");
         }
 
         [Test]

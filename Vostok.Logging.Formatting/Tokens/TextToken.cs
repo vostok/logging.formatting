@@ -9,44 +9,24 @@ namespace Vostok.Logging.Formatting.Tokens
     {
         public TextToken([NotNull] string text, int offset, int length)
         {
-            Text = text ?? throw new ArgumentNullException(nameof(text));
-            Offset = offset;
-            Length = length;
+            Text = (text ?? throw new ArgumentNullException(nameof(text))).Substring(offset, length);
         }
 
         public TextToken([NotNull] string text)
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
-            Offset = 0;
-            Length = text.Length;
         }
 
         public string Text { get; }
 
-        public int Offset { get; }
-
-        public int Length { get; }
-
         public void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            if (Length == 0)
-                return;
-
-            if (Length == Text.Length)
+            if (Text.Length > 0)
             {
                 writer.Write(Text);
             }
-            else
-            {
-                // TODO(krait): Benchmark.
-                for (var index = 0; index < Length; index++)
-                {
-                    writer.Write(Text[Offset + index]);
-                }
-            }
         }
 
-        public override string ToString() =>
-            Length == Text.Length ? Text : Text.Substring(Offset, Length);
+        public override string ToString() => Text;
     }
 }
