@@ -60,7 +60,7 @@ namespace Vostok.Logging.Formatting
             if (value == null)
                 return;
 
-            if (SurroundingSpacesFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace))
+            if (PaddingFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace))
                 format = null;
 
             if (insertLeadingSpace)

@@ -2,7 +2,7 @@
 
 namespace Vostok.Logging.Formatting.Helpers
 {
-    internal static class SurroundingSpacesFormatHelper
+    internal static class PaddingFormatHelper
     {
         private const string LeadingSpaceFormat = "W";
         private const string TrailingSpaceFormat = "w";
