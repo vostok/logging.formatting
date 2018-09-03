@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using Vostok.Logging.Formatting.Helpers;
 
@@ -18,15 +17,6 @@ namespace Vostok.Logging.Formatting
     {
         private const int StringBuilderCapacity = 64;
         private const int MaximumRecursionDepth = 3;
-        private const string LeadingSpaceFormat = "W";
-        private const string TrailingSpaceFormat = "w";
-        private static string[] spaceFormats =
-        {
-            TrailingSpaceFormat,
-            LeadingSpaceFormat,
-            TrailingSpaceFormat + LeadingSpaceFormat,
-            LeadingSpaceFormat + TrailingSpaceFormat
-        };
 
         /// <inheritdoc cref="Format(TextWriter,object,string,IFormatProvider)"/>
         public static string Format(
@@ -70,71 +60,39 @@ namespace Vostok.Logging.Formatting
             if (value == null)
                 return;
 
-            var hasLeadingSpace = false;
-            var hasTrailingSpace = false;
-            if (format != null && spaceFormats.Contains(format))
-            {
-                hasLeadingSpace = format.Contains(LeadingSpaceFormat);
-                hasTrailingSpace = format.Contains(TrailingSpaceFormat);
-            }
+            if (SurroundingSpacesFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace))
+                format = null;
 
-            void WriteLeadingSpace()
-            {
-                if (hasLeadingSpace)
-                    writer.Write(" ");
-            }
+            if (insertLeadingSpace)
+                writer.WriteSpace();
 
+            FormatInternal(writer, value, format, formatProvider);
+
+            if (insertTrailingSpace)
+                writer.WriteSpace();
+        }
+
+        private static void FormatInternal(TextWriter writer, object value, string format, IFormatProvider formatProvider)
+        {
             Type valueType;
 
-            if (value is string str && !string.IsNullOrEmpty(str))
-            {
-                WriteLeadingSpace();
+            if (value is string str)
                 writer.Write(str);
-            }
             else if (value is IFormattable formattable)
-            {
-                if (hasLeadingSpace || hasTrailingSpace)
-                    format = format?.Replace(LeadingSpaceFormat, string.Empty).Replace(TrailingSpaceFormat, string.Empty);
-                var formattableStr = formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture);
-                if (string.IsNullOrEmpty(formattableStr))
-                    return;
-                WriteLeadingSpace();
-                writer.Write(formattableStr);
-            }
+                writer.Write(formattable.ToString(format, formatProvider ?? CultureInfo.InvariantCulture));
             else if (HasCustomToString(valueType = value.GetType()))
-            {
-                var toStringStr = value.ToString();
-                if (string.IsNullOrEmpty(toStringStr))
-                    return;
-                WriteLeadingSpace();
-                writer.Write(toStringStr);
-            }
+                writer.Write(value.ToString());
             else if (IsSimpleDictionary(valueType))
-            {
-                WriteLeadingSpace();
                 FormatDictionaryAsJson(writer, value, 1);
-            }
             else if (value is IEnumerable enumerable)
-            {
-                WriteLeadingSpace();
                 FormatSequenceAsJson(writer, enumerable, 1);
-            }
             else if (HasPublicProperties(valueType))
-            {
-                WriteLeadingSpace();
                 FormatObjectPropertiesAsJson(writer, value, 1);
-            }
             else
-            {
-                var resStr = value.ToString();
-                if (string.IsNullOrEmpty(resStr))
-                    return;
-                writer.Write(resStr);
-            }
-
-            if (hasTrailingSpace)
-                writer.Write(" ");
+                writer.Write(value.ToString());
         }
+
+        private static void WriteSpace(this TextWriter writer) => writer.Write(" ");
 
         private static bool HasCustomToString(Type type) =>
             ToStringDetector.HasCustomToString(type);
