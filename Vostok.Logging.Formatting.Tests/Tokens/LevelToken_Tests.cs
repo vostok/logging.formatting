@@ -45,6 +45,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         [TestCase(LogLevel.Fatal, "u5", "FATAL")]
         [TestCase(LogLevel.Warn, "t5", "Warn ")]
         [TestCase((LogLevel)123, "u2", "")]
+        [TestCase((LogLevel)(-123), "u2", "")]
         public void Should_correctly_render_with_given_format(LogLevel level, string format, string expected)
         {
             var @event = new LogEvent(level, DateTimeOffset.Now, null);

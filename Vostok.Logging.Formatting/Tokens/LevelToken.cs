@@ -57,7 +57,8 @@ namespace Vostok.Logging.Formatting.Tokens
         public override void Render(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
             var index = (int)@event.Level;
-            if (index > 4) return;
+            if (index < 0 || index >= UppercaseLevelMap.Length)
+                return;
 
             switch (caseType)
             {
