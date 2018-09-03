@@ -22,6 +22,7 @@ namespace Vostok.Logging.Formatting
     ///     <item><description><c>{Properties}</c> — inserts all of event's <see cref="P:Vostok.Logging.Abstractions.LogEvent.Properties" />.<para /></description></item>
     /// </list>
     /// <para>Ordinary named properties are just referenced by their names, such as <c>{MyProp}</c>.</para>
+    /// <para>With ordinary properties, you can use a special <c>:W</c> format to add a leading space, <c>:w</c> to add a trailing space or <c>:wW</c> to add both.</para>
     /// <para>In the event of name collision, special predefined properties take precedence.</para>
     /// <para>Any text between property tokens in curly braces is rendered as-is.</para>
     /// </summary>

@@ -44,7 +44,8 @@ namespace Vostok.Logging.Formatting
             AddToken(new UptimeToken(format));
 
         /// <summary>
-        /// Adds a token which emits a property with given <paramref name="name"/> from event's <see cref="LogEvent.Properties"/> in given <paramref name="format"/>.
+        /// <para>Adds a token which emits a property with given <paramref name="name"/> from event's <see cref="LogEvent.Properties"/> in given <paramref name="format"/>.</para>
+        /// <para>You can use a special <c>:W</c> format to add a leading space, <c>:w</c> to add a trailing space or <c>:wW</c> to add both.</para>
         /// </summary>
         public OutputTemplateBuilder AddProperty([NotNull] string name, [CanBeNull] string format = null) =>
             AddToken(new PropertyToken(name, format));
