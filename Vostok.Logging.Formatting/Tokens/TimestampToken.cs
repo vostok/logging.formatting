@@ -12,7 +12,14 @@ namespace Vostok.Logging.Formatting.Tokens
     {
         public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
 
+        private const int MinimumYearToPrerender = 2018;
+        private const int TotalYearsToPrerender = 100;
+
         private static readonly IFormatProvider InvariantCulture = CultureInfo.InvariantCulture;
+
+        private static readonly string[] PrerenderedYears = PrerenderNumbers(MinimumYearToPrerender, TotalYearsToPrerender, 4);
+        private static readonly string[] PrerenderedUpToSeconds = PrerenderNumbers(0, 60, 2);
+        private static readonly string[] PrerenderedMilliseconds = PrerenderNumbers(0, 1000, 3);
 
         private readonly bool hasCustomFormat;
 
@@ -37,46 +44,50 @@ namespace Vostok.Logging.Formatting.Tokens
         }
 
         // TODO(krait): Benchmark.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void FormatTimestampEfficiently(DateTime timestamp, TextWriter writer)
         {
-            writer.Write(timestamp.Year.ToString(InvariantCulture));
+            writer.Write(RenderYear(timestamp.Year));
             writer.Write('-');
 
-            WriteNumberWithTwoDigitPadding(timestamp.Month, writer);
+            writer.Write(PrerenderedUpToSeconds[timestamp.Month]);
             writer.Write('-');
 
-            WriteNumberWithTwoDigitPadding(timestamp.Day, writer);
+            writer.Write(PrerenderedUpToSeconds[timestamp.Day]);
             writer.Write(' ');
 
-            WriteNumberWithTwoDigitPadding(timestamp.Hour, writer);
+            writer.Write(PrerenderedUpToSeconds[timestamp.Hour]);
             writer.Write(':');
 
-            WriteNumberWithTwoDigitPadding(timestamp.Minute, writer);
+            writer.Write(PrerenderedUpToSeconds[timestamp.Minute]);
             writer.Write(':');
 
-            WriteNumberWithTwoDigitPadding(timestamp.Second, writer);
+            writer.Write(PrerenderedUpToSeconds[timestamp.Second]);
             writer.Write(',');
-            WriteNumberWithThreeDigitPadding(timestamp.Millisecond, writer);
+
+            writer.Write(PrerenderedMilliseconds[timestamp.Millisecond]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void WriteNumberWithTwoDigitPadding(int number, TextWriter writer)
+        private static string RenderYear(int year)
         {
-            if (number < 10)
-                writer.Write('0');
+            var prerenderedIndex = year - MinimumYearToPrerender;
+            if (prerenderedIndex < 0 || prerenderedIndex >= TotalYearsToPrerender)
+                return year.ToString(InvariantCulture).PadLeft(4, '0');
 
-            writer.Write(number.ToString(InvariantCulture));
+            return PrerenderedYears[prerenderedIndex];
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void WriteNumberWithThreeDigitPadding(int number, TextWriter writer)
+        private static string[] PrerenderNumbers(int from, int count, int desiredLength)
         {
-            if (number < 10)
-                writer.Write("00");
-            else if (number < 100)
-                writer.Write('0');
+            var result = new string[count];
 
-            writer.Write(number.ToString(InvariantCulture));
+            for (var i = 0; i < count; i++)
+            {
+                result[i] = (from + i).ToString(InvariantCulture).PadLeft(desiredLength, '0');
+            }
+
+            return result;
         }
     }
 }

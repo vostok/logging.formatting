@@ -33,6 +33,30 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         }
 
         [Test]
+        public void Should_render_event_timestamp_from_distant_past()
+        {
+            @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now - TimeSpan.FromDays(2000 * 365), null);
+
+            new TimestampToken().Render(@event, writer, null);
+
+            Console.Out.WriteLine(writer.ToString());
+
+            writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat));
+        }
+
+        [Test]
+        public void Should_render_event_timestamp_from_distant_future()
+        {
+            @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now + TimeSpan.FromDays(2000 * 365), null);
+
+            new TimestampToken().Render(@event, writer, null);
+
+            Console.Out.WriteLine(writer.ToString());
+
+            writer.ToString().Should().Be(@event.Timestamp.ToString(TimestampToken.DefaultFormat));
+        }
+
+        [Test]
         public void Should_render_event_timestamp_with_format_correctly()
         {
             const string format = "yyyy MM dd HH-mm-ss";
