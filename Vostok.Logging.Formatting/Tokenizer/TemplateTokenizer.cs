@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using JetBrains.Annotations;
-using Vostok.Logging.Formatting.Helpers;
+using Vostok.Commons.Formatting;
 using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting.Tokenizer
