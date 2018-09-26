@@ -26,9 +26,7 @@
     <RepositoryUrl>https://github.com/vostok/logging.formatting</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\..\vostok.commons.collections\Vostok.Commons.Collections\RecyclingBoundedCache.cs" Link="Commons\RecyclingBoundedCache.cs" />
-  </ItemGroup>
+  <Import Project="..\..\vostok.commons.formatting\ObjectValueFormatter.props" />
 
   <ItemGroup>
     <Reference Include="Vostok.Logging.Abstractions">

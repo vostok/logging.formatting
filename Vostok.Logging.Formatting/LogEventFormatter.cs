@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using JetBrains.Annotations;
+using Vostok.Commons.Formatting;
 using Vostok.Logging.Abstractions;
-using Vostok.Logging.Formatting.Helpers;
 
 namespace Vostok.Logging.Formatting
 {
