@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokens;
 
 // ReSharper disable AssignNullToNotNullAttribute
@@ -33,7 +34,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
         private static IEnumerable<Type> GetSpecialTokenTypes() =>
             typeof(NamedToken)
                 .Assembly
-                .GetTypes()
+                .GetTypesSilently()
                 .Where(type => typeof(NamedToken).IsAssignableFrom(type))
                 .Where(type => type != typeof(NamedToken))
                 .Where(type => type != typeof(PropertyToken))
