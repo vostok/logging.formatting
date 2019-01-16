@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Title>Vostok logging library</Title>
-    <Description>Logging library for microservice toolkit http://vostok.tools/</Description>
+    <Title>Vostok.Logging.Formatting</Title>
+    <Description>A library responsible for rendering messages and log events to text. Used in any standalone text-based log implementation.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
