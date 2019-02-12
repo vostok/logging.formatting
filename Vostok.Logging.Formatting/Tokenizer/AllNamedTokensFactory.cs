@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokens;
 
 // ReSharper disable AssignNullToNotNullAttribute
@@ -17,7 +15,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
         {
             SpecialTokens = new Dictionary<string, Func<string, ITemplateToken>>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (var tokenType in GetSpecialTokenTypes())
+            foreach (var tokenType in SpecialTokensTypesProvider.Get())
             {
                 var factoryDelegate = CreateFactoryDelegate(tokenType);
                 var tokenName = (factoryDelegate(null) as NamedToken)?.Name;
@@ -30,15 +28,6 @@ namespace Vostok.Logging.Formatting.Tokenizer
             SpecialTokens.TryGetValue(name, out var tokenFactory)
                 ? tokenFactory(format)
                 : new PropertyToken(name, format);
-
-        private static IEnumerable<Type> GetSpecialTokenTypes() =>
-            typeof(NamedToken)
-                .Assembly
-                .GetTypesSilently()
-                .Where(type => typeof(NamedToken).IsAssignableFrom(type))
-                .Where(type => type != typeof(NamedToken))
-                .Where(type => type != typeof(PropertyToken))
-                .Where(type => !type.IsAbstract);
 
         private static Func<string, ITemplateToken> CreateFactoryDelegate(Type tokenType)
         {
