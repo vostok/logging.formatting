@@ -5,7 +5,6 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    [UsedImplicitly]
     internal class LevelToken : NamedToken
     {
         private const string DefaultFormat = "u5";

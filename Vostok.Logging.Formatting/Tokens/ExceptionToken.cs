@@ -5,7 +5,6 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    [UsedImplicitly]
     internal class ExceptionToken : NamedToken
     {
         private const int MaximumDepth = 10;

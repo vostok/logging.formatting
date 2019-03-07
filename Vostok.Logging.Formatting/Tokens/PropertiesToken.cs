@@ -5,9 +5,6 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    // TODO(iloktionov): https://github.com/vostok/logging.formatting/issues/1
-
-    [UsedImplicitly]
     internal class PropertiesToken : NamedToken
     {
         public PropertiesToken([CanBeNull] string format = null)

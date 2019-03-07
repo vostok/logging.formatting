@@ -6,7 +6,6 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    [UsedImplicitly]
     internal class UptimeToken : NamedToken
     {
         private static readonly Stopwatch Watch;
