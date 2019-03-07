@@ -34,7 +34,7 @@ namespace Vostok.Logging.Formatting
                 throw new ArgumentNullException(nameof(@event));
 
             if (@event.MessageTemplate == null)
-                return "";
+                return string.Empty;
 
             var builder = StringBuilderCache.Acquire(@event.MessageTemplate.Length * 2);
             var writer = new StringWriter(builder);

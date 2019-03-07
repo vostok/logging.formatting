@@ -7,7 +7,6 @@ using Vostok.Logging.Abstractions;
 
 namespace Vostok.Logging.Formatting.Tokens
 {
-    [UsedImplicitly]
     internal class TimestampToken : NamedToken
     {
         public const string DefaultFormat = "yyyy-MM-dd HH:mm:ss,fff";
@@ -43,7 +42,6 @@ namespace Vostok.Logging.Formatting.Tokens
             }
         }
 
-        // TODO(krait): Benchmark.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void FormatTimestampEfficiently(DateTime timestamp, TextWriter writer)
         {

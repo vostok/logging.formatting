@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting.Tokenizer
