@@ -35,13 +35,14 @@ namespace Vostok.Logging.Formatting
         public static readonly OutputTemplate Empty = new OutputTemplate(Array.Empty<ITemplateToken>());
 
         /// <summary>
-        /// A default template with following representation: <c>{Timestamp} {Level} {Prefix}{Message}{NewLine}{Exception}</c>
+        /// A default template with following representation: <c>{Timestamp} {Level} {TraceContext}{OperationContext}{SourceContext} {Prefix}{Message}{NewLine}{Exception}</c>
         /// </summary>
         public static readonly OutputTemplate Default =
             Parse(
                 $"{{{WellKnownTokens.Timestamp}}} " +
                 $"{{{WellKnownTokens.Level}}} " +
-                $"{{{WellKnownProperties.OperationContext}}}" +
+                $"{{{WellKnownProperties.TraceContext}:w}}" +
+                $"{{{WellKnownProperties.OperationContext}:w}}" +
                 $"{{{WellKnownProperties.SourceContext}:w}}" +
                 $"{{{WellKnownTokens.Message}}}" +
                 $"{{{WellKnownTokens.NewLine}}}" +
