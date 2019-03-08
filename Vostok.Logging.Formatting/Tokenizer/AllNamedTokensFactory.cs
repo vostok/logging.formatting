@@ -11,6 +11,8 @@ namespace Vostok.Logging.Formatting.Tokenizer
     {
         private static readonly Dictionary<string, Func<string, ITemplateToken>> SpecialTokens;
 
+        private readonly HashSet<string> observedOrdinaryProperties = new HashSet<string>();
+
         static AllNamedTokensFactory()
         {
             SpecialTokens = new Dictionary<string, Func<string, ITemplateToken>>(StringComparer.OrdinalIgnoreCase);
@@ -24,10 +26,18 @@ namespace Vostok.Logging.Formatting.Tokenizer
             }
         }
 
-        public ITemplateToken Create(string name, string format) =>
-            SpecialTokens.TryGetValue(name, out var tokenFactory)
-                ? tokenFactory(format)
-                : new PropertyToken(name, format);
+        public ITemplateToken Create(string name, string format)
+        {
+            if (name == WellKnownTokens.Properties)
+                return new PropertiesToken(observedOrdinaryProperties, format);
+
+            if (SpecialTokens.TryGetValue(name, out var tokenFactory))
+                return tokenFactory(format);
+
+            observedOrdinaryProperties.Add(name);
+
+            return new PropertyToken(name, format);
+        }
 
         private static Func<string, ITemplateToken> CreateFactoryDelegate(Type tokenType)
         {
