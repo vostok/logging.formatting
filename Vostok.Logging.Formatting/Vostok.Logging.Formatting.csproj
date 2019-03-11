@@ -24,6 +24,7 @@
     <PackageProjectUrl>https://github.com/vostok/logging.formatting</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/vostok/logging.formatting/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>vostok vostok.logging</PackageTags>
+    <PackageReleaseNotes>https://github.com/vostok/logging.formatting/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/vostok/logging.formatting</RepositoryUrl>
   </PropertyGroup>
 
