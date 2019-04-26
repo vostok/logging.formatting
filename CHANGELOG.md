@@ -1,3 +1,7 @@
+## 1.0.1 (26.04.2019):
+
+* Leading @ character in property names in template strings is now ignored.
+
 ## 1.0.0 (11.03.2019):
 
 * PropertiesToken no longer renders properties mentioned elsewhere in the output template.

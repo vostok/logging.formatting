@@ -22,6 +22,16 @@ namespace Vostok.Logging.Formatting.Tests
         }
 
         [Test]
+        public void Should_ignore_leading_at_character_in_templates()
+        {
+            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {@User}! You have {@UnreadCount:D5} messages to read.")
+                .WithProperty("User", "Kontur")
+                .WithProperty("UnreadCount", 50);
+
+            LogMessageFormatter.Format(@event).Should().Be("Hello, Kontur! You have 00050 messages to read.");
+        }
+
+        [Test]
         public void Should_respect_case_sensitivity_in_templates()
         {
             var event1 = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User}!").WithProperty("User", "Kontur");

@@ -15,6 +15,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
         private const char Underscore = '_';
         private const char Whitespace = ' ';
         private const char Colon = ':';
+        private const char At = '@';
 
         [NotNull]
         public static IEnumerable<ITemplateToken> Tokenize([CanBeNull] string template, [NotNull] INamedTokenFactory namedTokenFactory)
@@ -149,6 +150,12 @@ namespace Vostok.Logging.Formatting.Tokenizer
             out string name,
             out string format)
         {
+            if (length > 0 && template[offset] == At)
+            {
+                offset++;
+                length--;
+            }
+
             if (length == 0)
             {
                 name = format = null;
