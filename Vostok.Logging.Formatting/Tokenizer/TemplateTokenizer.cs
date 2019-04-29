@@ -150,12 +150,6 @@ namespace Vostok.Logging.Formatting.Tokenizer
             out string name,
             out string format)
         {
-            if (length > 0 && template[offset] == At)
-            {
-                offset++;
-                length--;
-            }
-
             if (length == 0)
             {
                 name = format = null;
@@ -212,7 +206,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsValidInName(char c) =>
-            char.IsLetterOrDigit(c) || c == Underscore;
+            char.IsLetterOrDigit(c) || c == Underscore || c == At;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsValidInFormat(char c) =>
