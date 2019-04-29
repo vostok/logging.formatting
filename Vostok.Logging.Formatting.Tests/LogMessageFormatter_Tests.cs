@@ -11,24 +11,15 @@ namespace Vostok.Logging.Formatting.Tests
         [Test]
         public void Should_correctly_format_log_event_message_using_its_properties_and_produce_repeatable_results()
         {
-            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User}! You have {UnreadCount:D5} messages to read.")
+            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User} {@User_Id}! You have {UnreadCount:D5} messages to read.")
                 .WithProperty("User", "Kontur")
+                .WithProperty("@User_Id", 100500)
                 .WithProperty("UnreadCount", 50);
 
             for (var i = 0; i < 10; i++)
             {
-                LogMessageFormatter.Format(@event).Should().Be("Hello, Kontur! You have 00050 messages to read.");
+                LogMessageFormatter.Format(@event).Should().Be("Hello, Kontur 100500! You have 00050 messages to read.");
             }
-        }
-
-        [Test]
-        public void Should_ignore_leading_at_character_in_templates()
-        {
-            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {@User}! You have {@UnreadCount:D5} messages to read.")
-                .WithProperty("User", "Kontur")
-                .WithProperty("UnreadCount", 50);
-
-            LogMessageFormatter.Format(@event).Should().Be("Hello, Kontur! You have 00050 messages to read.");
         }
 
         [Test]

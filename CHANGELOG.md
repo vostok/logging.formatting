@@ -1,3 +1,7 @@
+## 1.0.2 (29.04.2019):
+
+* Just allowed @ character in property names.
+
 ## 1.0.1 (26.04.2019):
 
 * Leading @ character in property names in template strings is now ignored.
