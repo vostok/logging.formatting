@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokens;
@@ -81,9 +82,12 @@ namespace Vostok.Logging.Formatting
         public OutputTemplateBuilder AddException() =>
             AddToken(new ExceptionToken());
 
-        private OutputTemplateBuilder AddToken(ITemplateToken token)
+        /// <summary>
+        /// Adds given arbitrary <paramref name="token"/> to the output template.
+        /// </summary>
+        public OutputTemplateBuilder AddToken([NotNull] ITemplateToken token)
         {
-            tokens.Add(token);
+            tokens.Add(token ?? throw new ArgumentNullException(nameof(token)));
             return this;
         }
     }
