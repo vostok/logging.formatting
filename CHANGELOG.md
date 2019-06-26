@@ -1,3 +1,7 @@
+## 1.0.3 (26.06.2019):
+
+* Made `ITemplateToken` interface public. `OutputTemplateBuilder` now also publicly accepts arbitrary tokens.
+
 ## 1.0.2 (29.04.2019):
 
 * Just allowed @ character in property names.
