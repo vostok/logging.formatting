@@ -1,3 +1,7 @@
+## 1.0.4 (26.09.2019):
+
+* Fixed lowerCamelCase `WellKnownProperties`.
+
 ## 1.0.3 (26.06.2019):
 
 * Made `ITemplateToken` interface public. `OutputTemplateBuilder` now also publicly accepts arbitrary tokens.
