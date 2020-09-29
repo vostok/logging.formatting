@@ -23,6 +23,20 @@ namespace Vostok.Logging.Formatting.Tests
         }
 
         [Test]
+        public void Should_correctly_format_log_event_without_properties_and_produce_repeatable_results()
+        {
+            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello!")
+                .WithProperty("User", "Kontur")
+                .WithProperty("@User_Id", 100500)
+                .WithProperty("UnreadCount", 50);
+
+            for (var i = 0; i < 10; i++)
+            {
+                LogMessageFormatter.Format(@event).Should().Be("Hello!");
+            }
+        }
+
+        [Test]
         public void Should_respect_case_sensitivity_in_templates()
         {
             var event1 = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User}!").WithProperty("User", "Kontur");
