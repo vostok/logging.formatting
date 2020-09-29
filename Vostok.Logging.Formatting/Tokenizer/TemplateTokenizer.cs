@@ -10,12 +10,17 @@ namespace Vostok.Logging.Formatting.Tokenizer
 {
     internal static class TemplateTokenizer
     {
+        private static readonly char[] AllBraces = {OpeningBrace, ClosingBrace};
+
         private const char OpeningBrace = '{';
         private const char ClosingBrace = '}';
         private const char Underscore = '_';
         private const char Whitespace = ' ';
         private const char Colon = ':';
         private const char At = '@';
+
+        public static bool CanContainNamedTokens(string template)
+            => template.IndexOfAny(AllBraces) >= 0;
 
         [NotNull]
         public static IEnumerable<ITemplateToken> Tokenize([CanBeNull] string template, [NotNull] INamedTokenFactory namedTokenFactory)

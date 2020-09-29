@@ -36,10 +36,13 @@ namespace Vostok.Logging.Formatting
             if (@event.MessageTemplate == null)
                 return string.Empty;
 
+            if (!TemplateTokenizer.CanContainNamedTokens(@event.MessageTemplate))
+                return @event.MessageTemplate;
+
             var builder = StringBuilderCache.Acquire(@event.MessageTemplate.Length * 2);
             var writer = new StringWriter(builder);
 
-            Format(@event, writer, formatProvider);
+            FormatInternal(@event, writer, formatProvider);
 
             StringBuilderCache.Release(builder);
 
@@ -66,6 +69,16 @@ namespace Vostok.Logging.Formatting
             if (@event.MessageTemplate == null)
                 return;
 
+            if (!TemplateTokenizer.CanContainNamedTokens(@event.MessageTemplate))
+            {
+                if (@event.MessageTemplate.Length > 0)
+                    writer.Write(@event.MessageTemplate);
+            }
+            else FormatInternal(@event, writer, formatProvider);
+        }
+
+        private static void FormatInternal(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
+        {
             var tokens = TemplateCache.Obtain(@event.MessageTemplate, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
 
             foreach (var token in tokens)
