@@ -1,3 +1,7 @@
+## 1.0.5 (29.09.2020):
+
+* LogMessageFormatter: no additional allocations when message template is not a template at all.
+
 ## 1.0.4 (26.09.2019):
 
 * Fixed lowerCamelCase `WellKnownProperties`.
