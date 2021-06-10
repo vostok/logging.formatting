@@ -18,6 +18,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
         private const char Whitespace = ' ';
         private const char Colon = ':';
         private const char At = '@';
+        private const char Dot = '.';
 
         public static bool CanContainNamedTokens(string template)
             => template.IndexOfAny(AllBraces) >= 0;
@@ -211,7 +212,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsValidInName(char c) =>
-            char.IsLetterOrDigit(c) || c == Underscore || c == At;
+            char.IsLetterOrDigit(c) || c == Underscore || c == At || c == Dot;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsValidInFormat(char c) =>
