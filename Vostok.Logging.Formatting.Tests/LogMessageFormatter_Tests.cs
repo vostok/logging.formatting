@@ -11,10 +11,10 @@ namespace Vostok.Logging.Formatting.Tests
         [Test]
         public void Should_correctly_format_log_event_message_using_its_properties_and_produce_repeatable_results()
         {
-            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User} {@User_Id}! You have {UnreadCount:D5} messages to read.")
+            var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello, {User} {@User_Id}! You have {Unread.Count:D5} messages to read.")
                 .WithProperty("User", "Kontur")
                 .WithProperty("@User_Id", 100500)
-                .WithProperty("UnreadCount", 50);
+                .WithProperty("Unread.Count", 50);
 
             for (var i = 0; i < 10; i++)
             {
@@ -28,7 +28,7 @@ namespace Vostok.Logging.Formatting.Tests
             var @event = new LogEvent(LogLevel.Info, DateTimeOffset.Now, "Hello!")
                 .WithProperty("User", "Kontur")
                 .WithProperty("@User_Id", 100500)
-                .WithProperty("UnreadCount", 50);
+                .WithProperty("Unread.Count", 50);
 
             for (var i = 0; i < 10; i++)
             {
