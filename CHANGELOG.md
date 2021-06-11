@@ -1,3 +1,7 @@
+## 1.0.6 (11.06.2021):
+
+Allow dot character in property names.
+
 ## 1.0.5 (29.09.2020):
 
 * LogMessageFormatter: no additional allocations when message template is not a template at all.
