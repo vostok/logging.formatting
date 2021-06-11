@@ -40,6 +40,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         [TestCase("0")]
         [TestCase("1")]
         [TestCase("_underscored")]
+        [TestCase(".dotted")]
         public void Should_produce_single_property_token_for_template_with_a_single_property_without_format(string name)
         {
             Test($"{{{name}}}", new PropertyToken(name));
@@ -50,6 +51,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         [TestCase("0")]
         [TestCase("1")]
         [TestCase("_underscored")]
+        [TestCase(".dotted")]
         public void Should_produce_single_property_token_for_template_with_a_single_property_with_empty_format(string name)
         {
             Test($"{{{name}:}}", new PropertyToken(name));
