@@ -16,6 +16,10 @@ notests *default:
     - vostok.commons.formatting/src
 
 full-build > notests:
+  deps:
+    - -vostok.devtools
+    - vostok.devtools@with-net6.0
+
   build:
     target: Vostok.Logging.Formatting.sln
     configuration: Release
