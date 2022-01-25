@@ -1,3 +1,7 @@
+## 1.0.9 (25-01-2022):
+
+Increaced max object rendered deep from 3 to 10.
+
 ## 1.0.8 (06-12-2021):
 
 Added `net6.0` target.

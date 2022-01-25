@@ -289,9 +289,11 @@ namespace Vostok.Logging.Formatting.Tests
         [Test]
         public void Should_format_nested_objects_with_depth_limit()
         {
-            var value = new { A = 1, B = new {C = 2, D = new { E = 3 }} };
+            object value = 15;
+            for (int i = 0; i < 10; i++)
+                value = new {X = i, Y = value};
 
-            Format(value).Should().Be("{\"A\": \"1\", \"B\": {\"C\": \"2\", \"D\": {\"E\": \"<too deep>\"}}}");
+            Format(value).Should().Be(@"{""X"": ""9"", ""Y"": {""X"": ""8"", ""Y"": {""X"": ""7"", ""Y"": {""X"": ""6"", ""Y"": {""X"": ""5"", ""Y"": {""X"": ""4"", ""Y"": {""X"": ""3"", ""Y"": {""X"": ""2"", ""Y"": {""X"": ""1"", ""Y"": {""X"": ""<too deep>"", ""Y"": ""<too deep>""}}}}}}}}}}");
         }
 
         [Test]
