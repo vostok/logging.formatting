@@ -305,7 +305,7 @@ namespace Vostok.Logging.Formatting.Tests
             value1.Prop = value2;
             value2.Prop = value1;
 
-            Format(value1).Should().Be("{\"Prop\": {\"Prop\": {\"Prop\": \"<too deep>\"}}}");
+            Format(value1).Should().Be(@"{""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": {""Prop"": ""<too deep>""}}}}}}}}}}");
         }
 
         [Test]
