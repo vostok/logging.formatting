@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Vostok.Commons.Collections;
 using Vostok.Logging.Abstractions;
+using Vostok.Logging.Abstractions.Values;
 using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokenizer;
 using Vostok.Logging.Formatting.Tokens;
@@ -26,13 +27,13 @@ internal static class OperationContextValueFormatter
         [CanBeNull] string format = null,
         [CanBeNull] IFormatProvider formatProvider = null)
     {
-        if (value is not string template || !TemplateTokenizer.CanContainNamedTokens(template))
+        if (value is not OperationContextValue contextValue || !TemplateTokenizer.CanContainNamedTokens(contextValue.ToString()))
         {
             PropertyValueFormatter.Format(writer, value, format, formatProvider);
             return;
         }
 
-        var tokens = TemplateCache.Obtain(template, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
+        var tokens = TemplateCache.Obtain(contextValue.ToString(), t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
 
         PaddingFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace);
         
