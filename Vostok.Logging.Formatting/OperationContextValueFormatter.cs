@@ -2,13 +2,11 @@ using System;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Vostok.Commons.Collections;
 using Vostok.Commons.Formatting;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Abstractions.Values;
 using Vostok.Logging.Formatting.Helpers;
 using Vostok.Logging.Formatting.Tokenizer;
-using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting;
 
@@ -16,13 +14,7 @@ namespace Vostok.Logging.Formatting;
 public static class OperationContextValueFormatter
 {
     private const int StringBuilderCapacity = 64;
-    private const int TemplateCacheCapacity = 1000;
-
-    private static readonly INamedTokenFactory TokenFactory = new PropertyTokensFactory();
-
-    private static readonly RecyclingBoundedCache<string, ITemplateToken[]> TemplateCache =
-        new RecyclingBoundedCache<string, ITemplateToken[]>(TemplateCacheCapacity, StringComparer.Ordinal);
-
+    
     public static string Format(
         [NotNull] LogEvent @event,
         [CanBeNull] object value,
@@ -63,7 +55,7 @@ public static class OperationContextValueFormatter
             return;
         }
 
-        var tokens = TemplateCache.Obtain(template, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
+        var tokens = TemplatesCache.ObtainTokens(template);
 
         PaddingFormatHelper.TryParseFormat(format, out var insertLeadingSpace, out var insertTrailingSpace);
 
