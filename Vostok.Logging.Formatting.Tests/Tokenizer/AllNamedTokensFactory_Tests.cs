@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokenizer;
 using Vostok.Logging.Formatting.Tokens;
 
@@ -69,6 +70,13 @@ namespace Vostok.Logging.Formatting.Tests.Tokenizer
         public void Should_create_property_tokens_for_non_special_names()
         {
             factory.Create("name", "format").Should().BeEquivalentTo(new PropertyToken("name", "format"));
+        }
+        
+        [Test]
+        public void Should_create_operation_context_token_with_given_format()
+        {
+            factory.Create(WellKnownProperties.OperationContext, "format").Should().BeOfType<OperationContextToken>()
+                .Which.Format.Should().Be("format");
         }
 
         [Test]
