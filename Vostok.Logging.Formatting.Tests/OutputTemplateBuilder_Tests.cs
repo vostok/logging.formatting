@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting.Tests
@@ -88,6 +89,14 @@ namespace Vostok.Logging.Formatting.Tests
             builder.AddException();
 
             builder.Build().Tokens.Should().ContainSingle().Which.Should().BeOfType<ExceptionToken>();
+        }
+        
+        [Test]
+        public void AddProperty_OperationContext_should_add_an_operation_context_token()
+        {
+            builder.AddProperty(WellKnownProperties.OperationContext);
+
+            builder.Build().Tokens.Should().ContainSingle().Which.Should().BeOfType<OperationContextToken>();
         }
 
         [Test]

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 
 namespace Vostok.Logging.Formatting.Helpers
 {
@@ -28,5 +29,7 @@ namespace Vostok.Logging.Formatting.Helpers
             insertTrailingSpace = false;
             return false;
         }
+        
+        public static void WriteSpace(this TextWriter writer) => writer.Write(" ");
     }
 }
