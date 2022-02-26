@@ -31,7 +31,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         [Test]
         public void Should_render_nothing_for_event_with_null_operation_context_property()
         {
-            @event = @event.WithProperty(WellKnownProperties.OperationContext, (OperationContextValue)null);
+            @event = @event.WithProperty(WellKnownProperties.OperationContext, (string)null);
             Render().Should().BeEmpty();
         }
 
@@ -55,6 +55,13 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         [Test]
         public void Render_should_render_template()
         {
+            @event = @event.WithProperty(WellKnownProperties.OperationContext, "Operation {Name}");
+            Render().Should().Be("Operation Vostok");
+        }
+        
+        [Test]
+        public void Render_should_render_template_with_value()
+        {
             @event = @event.WithProperty(WellKnownProperties.OperationContext, new OperationContextValue("Operation {Name}"));
             Render().Should().Be("[Operation Vostok]");
         }
@@ -63,17 +70,17 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         public void Render_should_render_template_with_objects()
         {
             @event = @event
-                .WithProperty(WellKnownProperties.OperationContext, new OperationContextValue("Operation {Name}"))
+                .WithProperty(WellKnownProperties.OperationContext, "Operation {Name}")
                 .WithProperty("Name", new {X = 43, Y = "yy"});
-            Render().Should().Be(@"[Operation {""X"": ""43"", ""Y"": ""yy""}]");
+            Render().Should().Be(@"Operation {""X"": ""43"", ""Y"": ""yy""}");
         }
         
         [Test]
         public void Render_should_render_template_with_spaces_format()
         {
             token = new OperationContextToken("wW");
-            @event = @event.WithProperty(WellKnownProperties.OperationContext, new OperationContextValue("Operation {Name}"));
-            Render().Should().Be(" [Operation Vostok] ");
+            @event = @event.WithProperty(WellKnownProperties.OperationContext, "Operation {Name}");
+            Render().Should().Be(" Operation Vostok ");
         }
 
         private string Render()
