@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
-using Vostok.Commons.Collections;
 using Vostok.Commons.Formatting;
 using Vostok.Logging.Abstractions;
 using Vostok.Logging.Formatting.Tokenizer;
-using Vostok.Logging.Formatting.Tokens;
 
 namespace Vostok.Logging.Formatting
 {
@@ -18,13 +15,6 @@ namespace Vostok.Logging.Formatting
     [PublicAPI]
     public static class LogMessageFormatter
     {
-        private const int TemplateCacheCapacity = 1000;
-
-        private static readonly INamedTokenFactory TokenFactory = new PropertyTokensFactory();
-
-        private static readonly RecyclingBoundedCache<string, ITemplateToken[]> TemplateCache =
-            new RecyclingBoundedCache<string, ITemplateToken[]>(TemplateCacheCapacity, StringComparer.Ordinal);
-
         /// <inheritdoc cref="Format(LogEvent,TextWriter,IFormatProvider)"/>
         public static string Format(
             [NotNull] LogEvent @event,
@@ -79,7 +69,7 @@ namespace Vostok.Logging.Formatting
 
         private static void FormatInternal(LogEvent @event, TextWriter writer, IFormatProvider formatProvider)
         {
-            var tokens = TemplateCache.Obtain(@event.MessageTemplate, t => TemplateTokenizer.Tokenize(t, TokenFactory).ToArray());
+            var tokens = TemplatesCache.ObtainTokens(@event.MessageTemplate);
 
             foreach (var token in tokens)
                 token.Render(@event, writer, formatProvider);
