@@ -1,3 +1,7 @@
+## 1.0.11 (01-03-2022):
+
+Supported properties rendering right inside Operation Context property.
+
 ## 1.0.10 (25-01-2022):
 
 Increased max object rendered deep from 3 to 10.
