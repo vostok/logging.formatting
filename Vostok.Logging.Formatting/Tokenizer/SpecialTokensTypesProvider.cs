@@ -20,6 +20,7 @@ namespace Vostok.Logging.Formatting.Tokenizer
                 // You can find original reflection-based code in tests.
                 typeof(ExceptionToken),
                 typeof(LevelToken),
+                typeof(OperationContextToken),
                 typeof(MessageToken),
                 typeof(NewlineToken),
                 typeof(PropertiesToken),

@@ -8,7 +8,7 @@ namespace Vostok.Logging.Formatting.Tests
     internal class OutputTemplate_Tests
     {
         [Test]
-        public void Should_always_return_same_result_from_tostring()
+        public void Should_always_return_same_result_from_to_string()
         {
             var result1 = OutputTemplate.Default.ToString();
             var result2 = OutputTemplate.Default.ToString();
@@ -53,6 +53,14 @@ namespace Vostok.Logging.Formatting.Tests
             var template2 = OutputTemplate.Parse("lalala{Prop:f2}{Message}lalala");
 
             template2.Should().NotBe(template1);
+        }
+        
+        [Test]
+        public void Should_successfully_parse_default_template()
+        {
+            var template = OutputTemplate.Default;
+
+            template.Tokens.Count.Should().Be(10);
         }
     }
 }

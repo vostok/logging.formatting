@@ -57,7 +57,5 @@ namespace Vostok.Logging.Formatting
             if (insertTrailingSpace)
                 writer.WriteSpace();
         }
-
-        private static void WriteSpace(this TextWriter writer) => writer.Write(" ");
     }
 }
