@@ -48,8 +48,13 @@ namespace Vostok.Logging.Formatting
         /// <para>Adds a token which emits a property with given <paramref name="name"/> from event's <see cref="LogEvent.Properties"/> in given <paramref name="format"/>.</para>
         /// <para>You can use a special <c>:W</c> format to add a leading space, <c>:w</c> to add a trailing space or <c>:wW</c> to add both.</para>
         /// </summary>
-        public OutputTemplateBuilder AddProperty([NotNull] string name, [CanBeNull] string format = null) =>
-            AddToken(new PropertyToken(name, format));
+        public OutputTemplateBuilder AddProperty([NotNull] string name, [CanBeNull] string format = null)
+        {
+            if (name == WellKnownProperties.OperationContext)
+                return AddToken(new OperationContextToken(format));
+            
+            return AddToken(new PropertyToken(name, format));
+        }
 
         /// <summary>
         /// Adds a token which emits all of event's <see cref="LogEvent.Properties"/>.
