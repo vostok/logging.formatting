@@ -1,3 +1,7 @@
+## 1.0.12 (11-03-2022):
+
+Format bytes array to base64 string.
+
 ## 1.0.11 (01-03-2022):
 
 Supported properties rendering right inside Operation Context property.
