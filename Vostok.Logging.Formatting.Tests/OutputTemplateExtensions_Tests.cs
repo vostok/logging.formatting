@@ -24,6 +24,24 @@ internal class OutputTemplateExtensions_Tests
     }
     
     [Test]
+    public void WithPropertyAfter_should_insert_properties_chain()
+    {
+        var template1 = new OutputTemplateBuilder()
+            .AddTimestamp()
+            .AddMessage()
+            .Build();
+
+        template1.ToString().Should().Be("{Timestamp}{Message}");
+        
+        var template2 = template1
+            .WithPropertyAfter(WellKnownTokens.Timestamp, "Prop1")
+            .WithPropertyAfter("Prop1", "Prop2");
+
+        template2.Tokens.Count.Should().Be(4);
+        template2.ToString().Should().Be("{Timestamp}{Prop1}{Prop2}{Message}");
+    }
+    
+    [Test]
     public void WithPropertyAfter_should_insert_property_with_format()
     {
         var template1 = new OutputTemplateBuilder()
