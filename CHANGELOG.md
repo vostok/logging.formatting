@@ -1,3 +1,7 @@
+## 1.0.13 (07-04-2022):
+
+Added `WithPropertyAfter` extension for simple `OutputTemplate` modification.
+
 ## 1.0.12 (11-03-2022):
 
 Format bytes array to base64 string.
