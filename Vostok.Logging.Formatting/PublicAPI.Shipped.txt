@@ -1,0 +1,47 @@
+const Vostok.Logging.Formatting.WellKnownTokens.Exception = "Exception" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.Level = "Level" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.Message = "Message" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.NewLine = "NewLine" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.Properties = "Properties" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.Timestamp = "Timestamp" -> string
+const Vostok.Logging.Formatting.WellKnownTokens.Uptime = "Uptime" -> string
+override Vostok.Logging.Formatting.OutputTemplate.Equals(object obj) -> bool
+override Vostok.Logging.Formatting.OutputTemplate.GetHashCode() -> int
+override Vostok.Logging.Formatting.OutputTemplate.ToString() -> string
+static readonly Vostok.Logging.Formatting.OutputTemplate.Default -> Vostok.Logging.Formatting.OutputTemplate
+static readonly Vostok.Logging.Formatting.OutputTemplate.Empty -> Vostok.Logging.Formatting.OutputTemplate
+static Vostok.Logging.Formatting.LogEventFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, System.IO.TextWriter writer, Vostok.Logging.Formatting.OutputTemplate template, System.IFormatProvider formatProvider = null) -> void
+static Vostok.Logging.Formatting.LogEventFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, Vostok.Logging.Formatting.OutputTemplate template, System.IFormatProvider formatProvider = null) -> string
+static Vostok.Logging.Formatting.LogMessageFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, System.IFormatProvider formatProvider = null) -> string
+static Vostok.Logging.Formatting.LogMessageFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, System.IO.TextWriter writer, System.IFormatProvider formatProvider = null) -> void
+static Vostok.Logging.Formatting.OperationContextValueFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, object value, string format = null, System.IFormatProvider formatProvider = null) -> string
+static Vostok.Logging.Formatting.OperationContextValueFormatter.Format(Vostok.Logging.Abstractions.LogEvent event, System.IO.TextWriter writer, object value, string format = null, System.IFormatProvider formatProvider = null) -> void
+static Vostok.Logging.Formatting.OutputTemplate.Create() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+static Vostok.Logging.Formatting.OutputTemplate.Parse(string input) -> Vostok.Logging.Formatting.OutputTemplate
+static Vostok.Logging.Formatting.OutputTemplateExtensions.WithPropertyAfter(this Vostok.Logging.Formatting.OutputTemplate template, string insertAfter, string property, string format = null) -> Vostok.Logging.Formatting.OutputTemplate
+static Vostok.Logging.Formatting.PropertyValueFormatter.Format(object value, string format = null, System.IFormatProvider formatProvider = null) -> string
+static Vostok.Logging.Formatting.PropertyValueFormatter.Format(System.IO.TextWriter writer, object value, string format = null, System.IFormatProvider formatProvider = null) -> void
+Vostok.Logging.Formatting.LogEventFormatter
+Vostok.Logging.Formatting.LogMessageFormatter
+Vostok.Logging.Formatting.OperationContextValueFormatter
+Vostok.Logging.Formatting.OutputTemplate
+Vostok.Logging.Formatting.OutputTemplate.Equals(Vostok.Logging.Formatting.OutputTemplate other) -> bool
+Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddAllProperties() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddException() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddLevel() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddLevel(string format) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddMessage() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddNewline() -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddProperty(string name, string format = null) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddText(string text) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddTimestamp(string format = null) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddToken(Vostok.Logging.Formatting.Tokens.ITemplateToken token) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.AddUptime(string format = null) -> Vostok.Logging.Formatting.OutputTemplateBuilder
+Vostok.Logging.Formatting.OutputTemplateBuilder.Build() -> Vostok.Logging.Formatting.OutputTemplate
+Vostok.Logging.Formatting.OutputTemplateBuilder.OutputTemplateBuilder() -> void
+Vostok.Logging.Formatting.OutputTemplateExtensions
+Vostok.Logging.Formatting.PropertyValueFormatter
+Vostok.Logging.Formatting.Tokens.ITemplateToken
+Vostok.Logging.Formatting.Tokens.ITemplateToken.Render(Vostok.Logging.Abstractions.LogEvent event, System.IO.TextWriter writer, System.IFormatProvider formatProvider) -> void
+Vostok.Logging.Formatting.WellKnownTokens
