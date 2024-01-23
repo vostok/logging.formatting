@@ -26,11 +26,11 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
         }
 
         [Test]
-        public void Should_correctly_format_type_and_messages_for_exceptions_without_nested_exceptions()
+        public void Should_use_ToString_to_render_exception()
         {
             try
             {
-                throw new Exception("error1");
+                throw new Exception("error1", new Exception("error2"));
             }
             catch (Exception error)
             {
@@ -38,24 +38,7 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
                 Console.Out.WriteLine(result);
 
-                result.Should().StartWith("System.Exception: error1");
-            }
-        }
-
-        [Test]
-        public void Should_correctly_format_type_and_messages_for_exceptions_with_nested_exceptions()
-        {
-            try
-            {
-                throw new Exception("error1", new Exception("error2", new FormatException("error3")));
-            }
-            catch (Exception error)
-            {
-                var result = Format(error);
-
-                Console.Out.WriteLine(result);
-
-                result.Should().StartWith("System.Exception: error1 ---> System.Exception: error2 ---> System.FormatException: error3");
+                result.Should().Contain(error.ToString());
             }
         }
 
