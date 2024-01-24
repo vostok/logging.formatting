@@ -38,7 +38,12 @@ namespace Vostok.Logging.Formatting.Tests.Tokens
 
                 Console.Out.WriteLine(result);
 
-                result.Should().Contain(error.ToString());
+                result.Should()
+                    .Contain(error.ToString())
+                    .And.Contain(typeof(Exception).FullName)
+                    .And.Contain("error1")
+                    .And.Contain("error2")
+                    .And.Contain(nameof(Should_use_ToString_to_render_exception));
             }
         }
 
