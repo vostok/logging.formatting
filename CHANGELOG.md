@@ -1,3 +1,7 @@
+## 1.0.14 (31-01-2024):
+
+Use `ToString` to render exceptions instead of custom formatting.
+
 ## 1.0.13 (07-04-2022):
 
 Added `WithPropertyAfter` extension for simple `OutputTemplate` modification.
