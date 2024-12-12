@@ -1,3 +1,7 @@
+## 1.0.15 (12-12-2024): 
+
+Bump NuGet deps versions
+
 ## 1.0.14 (31-01-2024):
 
 Use `ToString` to render exceptions instead of custom formatting.
